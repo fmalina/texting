@@ -7,4 +7,4 @@ It can send, receive, process, categorise, autoreply and follow-up on texts to c
 Texting centre integrates with an external SMS gateway via REST API or with hardware GSM modems such as Huawei USB dongles. 
 
 
-.. image:: https://...
+.. image:: https://github.com/fmalina/texting/blob/master/README-screenshot.png?raw=true
