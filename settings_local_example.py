@@ -3,10 +3,8 @@ DEBUG = False
 # Database credentials
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends. ....',
-        'NAME': 'texting',
-        'USER': 'root',
-        'PASSWORD': ''
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'texting.db',
     }
 }
 
