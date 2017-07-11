@@ -1,0 +1,65 @@
+
+body{font-family:sans-serif;color:#333;background:#fff}
+a{color:#f06caf;text-decoration:none}
+a:hover,a:active{color:#E00073;text-decoration:none}
+#w{min-width:880px}
+.del{color:#ccc;font-size:13px;text-decoration:none}
+.del:hover,.del:active{color:#444}
+.clear{clear:both}
+#h{border-bottom:1px solid #ddd;padding:25px 15px}
+#s{float:left;width:150px;border-right:1px solid #ddd;font-size:13px;color:#888}
+#s a{font-weight:bold}
+#s ul{padding:0;margin:0}
+#s li{list-style:none;padding:6px 15px;margin:0}
+#s li.modem{padding-left:39px;position:relative}
+#s li.modem i{position:absolute;left:11px}
+#s li li{padding:0}
+#s li li a{padding:4px 0;display:inline-block;font-weight:normal}
+#s li ul{padding:5px 0 0 0;display:none}
+#s b{cursor:pointer}
+#s .sep{border-top:1px solid #ddd}
+#s .curr b a{color:black}
+#s .curr b i{opacity:1}
+#s .curr ul{display:block}
+#c{float:left;padding:25px;font-size:13px;max-width:600px;}
+#c h1{margin:0;padding:0 0 15px 0;font-size:18px;}
+table{border-collapse:collapse}
+th,td{border-top:1px solid #ddd;padding:7px 10px}
+th{text-align:left}
+td .i{margin-right:0}
+.odd{border-left:1px solid #fff;border-right:1px solid #fff}
+.even{background:#eee;border:1px solid #ddd}
+form button{font-size:25px;padding:7px 15px}
+form table,
+form th,
+form td{border:0}
+form th{text-align:left;vertical-align:top;padding-left:0}
+.info{padding-bottom:20px;max-width:500px}
+.info .i{position:relative;top:3px}
+.i{opacity:.5;display:inline-block;width:18px;height:16px;margin-right:5px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABgCAMAAADcrSdwAAAAolBMVEUAAAACBAQAAAAAAAAFBwgAAAACAwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAnJycAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB5eXkAAAAAAABqampiYmKcnJywsLBxcXFJSUnDw8MAAAAFBwj////e3t4gICBra2ssLCy/v7+zHxvNAAAALnRSTlMAMO+/8PzenmmBT28P6Lj3qF6JKyEM19A+FAfhkHhIx7mwNxx2Y6SPXVdKR64ef3mypwAAA+9JREFUaN7tmYuSmjAUhg9YQBRQvF/Wtdbtvf3tbtv3f7WqEX9iApRFZ9oZv5mdiWeBL8lJDk6UBHkSUawBspYTLmOu1AGyp3X6E2RRDbFEbyfhbTUlrT1yNO15reThqiMBXAEMCTbjK0qUyZRgvb3idKFAgqR6JIoGI2lFlRJ+qM6JVfJhUZkTtm2bsVW9ugZSSgKi27Fh7+yS5iAQYi8rzRnInTtX4T2A93JjAgCBvJLxahMvP7QjKWEkMvQB+M6hreP4TkGAzHwgdoHpVkI50QXpHj9PAw8HvGB6jBDnzc4XDX/3xrlweN5gKzIMvTiAKFJ0hb5U5q4SLJXInWsOPrIoNPa9mWq96yGTQEfCoyIcyzg8asJShxlcYSCKAQolQz978tHnD0sdZniDrZzuLpZI1IM3ViP30IvKHeY/4lh0KMk3PCxFsYSXT/EuFSvpbufXkDQbCadL4WBKydJRMfcaOWHiJcCKErhO5mi+uriEO3C3lBwtyoGG+4SbcT7wvEc9J27qqkazHc+yEgNxh4nXydeuYe3axQIZJ6uxFEkqqvD/9z65cycrYyxylTiuKlU1gcK4s63ibUYi86v+yH5zYEqCWcALNYduiQBS1sUApmQkI15IBy0l4ALlsEiCUQDQQofIhQVnSiQBLBJCC/IS1JIEtoLpapYbSRzd0kBiThcgVkvUUKIslNBiSkh9iQQWCS3Np8uyGWmho+kSJqaFDttmbC5h4bOXleYSWui4KJCEuZM7d/4hvk5EMfkqt+IJIt9VE09yFVZywRfI00QN5Enwxby4PiksJ7nQmwSpvIJOzyLBYRSYnNsEvY7Ww40qpBu6O0uQVpQdioSPC4sEgCbBid47yei6mHZne7pTuN2TA+GI9W/aEpFhjAPxalE5EmTEQxUYTXkC3gIwPT58GfIwSmSE/JH5em7k5BubmgTrfAVWbVZiRCI4T+kIHMkeP5KMz2p1Qa2uz0UjSQG4oWqHB2NKCacry8mHZO0CfTnzEfwx46MU5iRFeO5Z9HB0cLqYeK6u2Vs4tHyanCSTT0K4uqww8cX7ZPBgrGRSvU9sS9iyiUslvLgZQ1NyeyB37vyTdPyO3JpuP+p35bY8DLQ6BSJSHEyQJymNyqLflgPt/qJEYoIWa7TTgmqk1qjM3z6K4vHtnJIflSOBdieyl4QZ3ZMIScolL79f8hJtDpC97szoHuTMKJW8PP94fgElWjb1FzejCuTMZ8mvveTXhWT3/PPHz+cdJdq61L6CgFEFcv2B/Xl2M7jDjJEwqkCuP7DPjH0OIXmYE5KXsD/QclxXolaXXWLEQOpKJP0biUnzHc8oY9VlpSl/ALnwWvCjnPWSAAAAAElFTkSuQmCC);}
+.sim{background-position:0 5px}
+.net{background-position:-23px -58px}
+.doc{background-position:-84px -38px}
+#s .curr i,
+.pho{background-position:-62px -58px}
+.hom{background-position:0 -38px}
+.tpl,
+.msg{background-position:-22px 3px}
+.tag{background-position:-22px -40px}
+.log{background-position:-43px 4px}
+.rep{background-position:0 -60px}
+.bin{background-position:-62px -38px}
+.err{background-position:-39px -39px}
+.arr{background-position:-60px 1px}
+.rel{background-position:-60px -17px}
+.lt {background-position:-22px -17px;width:10px}
+.gt {background-position:-45px -17px;width:10px}
+.read{background-position:-81px -79px}
+.send{background-position:-39px -58px}
+td .s{background-position:-60px -79px;width:19px}
+a:hover i,a:active i{opacity:1}
+.modem .edit-sim{display:none;font-weight:normal}
+.modem:hover .edit-sim{display:inline-block}
+.paging{float:right}
+.paging a,.paging span{display:inline-block;padding:10px;border:1px solid #ddd;border-radius:2px}
+table{width:100%}

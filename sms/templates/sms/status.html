@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Status: {% endblock %}
+{% block content %}
+<h1>{{ sim }} status</h1>
+<p><a class="edit-sim" href="{{ sim.get_absolute_url }}">Edit SIM details</a>
+<table>
+    {% for k, v in state.items %}
+    {% if v %}
+	<tr><th>{{ k }}</th>
+        <td>{{ v|safe }}</td></tr>
+	{% endif %}
+    {% endfor %}
+</table>
+
+{% if imei %}<p>Device IMEI: International Mobile Equipment Identity
+	(written inside the GSM device).</p>{% endif %}
+{% endblock %}

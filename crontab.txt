@@ -1,0 +1,25 @@
+# crontab -e
+DIR='/home/f/SITES'
+
+# Send texts 3x daily
+# Mon-Fri (start 7.30am)
+30 7,12,19 * * 1-5 cd $DIR/texting && ./manage.py campaign
+# Weekend (start 9.30am)
+30 9,12,19 * * 6-7 cd $DIR/texting && ./manage.py campaign
+
+# Send followups once a day with the evening texting
+40 19   * * * cd $DIR/texting && ./manage.py followup
+
+
+
+#####################
+# SUPERUSER CRONTAB
+#####################
+# sudo crontab -e
+# Make sure Mac is awake to send texts.
+# pmset only supports one "wake up schedule" per day, so cron sets up more to loop.
+# One schedule wakes up the computer and allows the other to be scheduled and so on.
+#####################
+0 09 * * * pmset repeat wakeorpoweron MTWRFSU 14:55:00
+0 15 * * * pmset repeat wakeorpoweron MTWRFSU 15:55:00
+0 16 * * * pmset repeat wakeorpoweron MTWRFSU 08:55:00

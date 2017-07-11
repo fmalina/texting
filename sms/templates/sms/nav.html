@@ -1,0 +1,25 @@
+
+<ul>
+<li><a href="{% url 'index' %}"><i class="i hom"></i>Home</a></li>
+{% for m in modems %}
+<li class="{% if m.current %}curr{% endif %} modem"><b>
+    <a href="{% url 'box'  m.i 'inbox' %}"><i class="i arr"></i>
+        {{ m.sim }}</a></b>
+<ul>
+    <li><a href="{% url 'box' m.i 'inbox'  %}">Inbox</a></li>
+    <li><a href="{% url 'box' m.i 'sent'   %}">Sent</a></li>
+    <li><a href="{% url 'box' m.i 'outbox' %}">Outbox</a></li>
+    <li><a href="{% url 'status' m.i %}">Status</a></li>
+</ul></li>
+{% endfor %}
+<li class="sep">
+	<a href="{% url 'sort' %}"><i class="i msg"></i>Replies</a></li>
+<li><a href="{% url 'cats' %}"><i class="i tag"></i>Categories</a></li>
+<li><a href="{% url 'sims' %}"><i class="i sim"></i>SIM cards</a></li>
+<li><a href="{% url 'nets' %}"><i class="i net"></i>Networks</a></li>
+<li><a href="{% url 'stat' %}"><i class="i log"></i>Stats</a></li>
+    
+<li class="sep">
+    <a href="https://github.com/oozie/pyhumod/blob/master/README.rst">
+		<i class="i doc"></i>Docs</a></li>
+</ul>

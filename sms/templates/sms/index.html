@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if modems %}
+	<h1>Connected</h1>
+    <table>
+        <tbody>
+            {% for modem in modems %}
+            <tr class="{% cycle 'odd' 'even' %} {{ modem.i }}">
+                <td>{{ modem.sim|linebreaksbr }}</td>
+                <td><a href="{% url 'box' modem.i 'inbox'  %}">inbox</a></td>
+                <td><a href="{{ modem.sim.get_absolute_url }}">edit</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

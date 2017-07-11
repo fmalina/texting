@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} - {% endblock %}
+{% block content %}
+<script>
+function bg_task(link, hide_id){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+	    if(xhr.readyState==4 && xhr.status==200){
+	        console.log(xhr.responseText);
+	    }
+	}
+	console.log(link.href);
+	xhr.open("GET", link.href, true);
+	xhr.send();
+	document.getElementById(hide_id).style.display = 'none';
+}
+</script>
+
+{{ paging }}
+<h1>{{ title }} <small>({{ count }})</small></h1>
+{% for t in texts %}
+<p id="t{{ t.id }}">
+	{% if t.txt__count > 1 %}({{ t.txt__count }}) {% endif %}
+	{{ t.at }} {{ t.no }}: {{ t.txt }}<br>
+	{% for c in cats %}
+		<a href="{% url 'tag' c.id t.id %}"
+			onclick="bg_task(this, 't{{ t.id }}');return false;">{{ c.name }}</a>
+		{% if not forloop.last %} / {% endif %}
+	{% endfor %}
+{% endfor %}
+{% endblock %}

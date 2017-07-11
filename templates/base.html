@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+<title>{% block title%}{% endblock %}Texting centre</title>
+<meta name="robots" content="noindex, nofollow">
+{% block extrastyles %}
+<style>{% include "sms/style.css" %}</style>
+{% endblock %}
+</head>
+<body>
+<div id="w">
+    <header id="h">
+        <i class="i msg"></i>Texting centre
+    </header>
+    <nav id="s">{% include "sms/nav.html" %}</nav>
+    <main id="c">
+        {% if info %}<div class="info">{% include "sms/modem_info.html" %}</div>{% endif %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="clear"></footer>
+</div>
+</body>
+</html>
