@@ -8,3 +8,20 @@ Texting centre integrates with an external SMS gateway via REST API or with hard
 
 
 .. image:: https://github.com/fmalina/texting/blob/master/README-screenshot.png?raw=true
+
+Installation
+------------
+
+::
+    git clone https://github.com/fmalina/texting.git
+    cd texting/
+    pip3 install -r requirements.txt
+    ./manage.py migrate
+    ./manage.py runserver
+
+Usage
+-----
+
+Plug in your Huawei dongle or Get account with SMS Breadcast.
+To setup your SMS breadcast credentials use the ./manage.py shell
+and follow NOTES.rst
