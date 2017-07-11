@@ -1,7 +1,10 @@
 import os.path
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
-from settings_local import *
+try:
+    from settings_local import *
+except ImportError:
+    from settings_local_example import *
 
 TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = ['texting.flatmaterooms.co.uk', 'localhost']
