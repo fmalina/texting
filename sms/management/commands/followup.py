@@ -10,7 +10,8 @@ def sort_by_sim(followup):
     return sims
 
 def choose_modem_by_sim(devices, sim):
-    """Return modem containing the SIM, None if no modem has it."""
+    """Return modem containing the SIM, None if no modem has it.
+    """
     try: return [x for x in devices if x['sim']==sim][0]['modem']
     except IndexError: return
 
@@ -27,14 +28,15 @@ def send_followups(devices, followups, txt):
                 print('-', end="")
 
 def followup():
-    """Followup runs once a day to avoid duplicates"""
+    """Followup runs once a day to avoid duplicates
+    """
     now = datetime.now()
     # take 1st campaign texts sent 24 hours ago up to FOLLOWUP_DAYS_BACK
     sent = Sms.objects.filter(typ='s',
-        txt__contains=FINGERPRINT,
-        at__range=(now - timedelta(days=FOLLOWUP_DAYS_BACK), now - timedelta(days=1)))
+        txt__contains=texting.FINGERPRINT,
+        at__range=(now - timedelta(days=texting.FOLLOWUP_DAYS_BACK), now - timedelta(days=1)))
     rpls = Sms.objects.filter(typ='r',
-        at__range=(now - timedelta(days=FOLLOWUP_DAYS_BACK), now))
+        at__range=(now - timedelta(days=texting.FOLLOWUP_DAYS_BACK), now))
     d={}
     for s in sent:
         d[s.no] = [s]
@@ -65,8 +67,8 @@ def followup():
 
     devices, _modem, _info = list_devices()
 
-    send_followups(devices, basic_followup, BASIC_FOLLOWUP_TXT)
-    send_followups(devices, whole_followup, WHOLE_FOLLOWUP_TXT)
+    send_followups(devices, basic_followup, texting.BASIC_FOLLOWUP_TXT)
+    send_followups(devices, whole_followup, texting.WHOLE_FOLLOWUP_TXT)
 
 
 class Command(BaseCommand):

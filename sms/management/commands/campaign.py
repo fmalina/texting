@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.core.mail import mail_admins
+from django.conf import settings
 from greeting import timely_greeting
 from sms.models import Sms
 from sms.stats import least_used
@@ -8,8 +9,8 @@ from sms import gateway_api
 from modem import list_devices
 from datetime import datetime, timedelta
 from time import sleep
-from settings_campaign import *
-import settings
+import settings_campaign as texting
+
 import urllib.request
 import urllib.parse
 import random
@@ -40,7 +41,7 @@ def send_one_text(modem, sim, txt, no, name=''):
     if name:
         txt = txt.replace("Hi,", "Hi %s," % name)
     sms = Sms(typ='s', sim=sim, txt=txt, no=no)
-    if RUN and modem:
+    if texting.RUN and modem:
         try:
             modem.sms_send(sms.no, sms.txt)
             sms.save()
@@ -50,13 +51,13 @@ def send_one_text(modem, sim, txt, no, name=''):
             print('ERROR', e, no)
             sleep(1)
             return False
-    elif RUN:
+    elif texting.RUN:
         sms.save() # save 1st, so pk is ready for status update
         gateway_api.send(sim, sms.no, sim.no, sms.txt, sms.pk)
         return no
 
 def send_texts(cat, nums):
-    txt = TEXTS[CATEGORIES[cat]]
+    txt = texting.TEXTS[texting.CATEGORIES[cat]]
     txt = custom_replace(txt, cat, greetings)
 
     devices, _modem, _info = list_devices()
@@ -81,19 +82,19 @@ def text_managers(modem, sim, msg):
 def mark_used(sent):
     nums = ', '.join(sent)
     data = urllib.parse.urlencode({'numbers': nums}).encode()
-    rqst = urllib.request.Request(API_URL, data)
+    rqst = urllib.request.Request(texting.API_URL, data)
     return urllib.request.urlopen(rqst).read()
 
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        datastr = urllib.request.urlopen(API_URL, timeout=15).read().decode()
+        datastr = urllib.request.urlopen(texting.API_URL, timeout=15).read().decode()
         data = json.loads(datastr)
         alerts = []
         for cat, nums in data.items():
             if nums:
                 i, modem, sim = send_texts(cat, nums)
                 alerts.append('%s %s' % (i, cat.lower()))
-        if RUN and alerts:
+        if texting.RUN and alerts:
             msg = ', '.join(alerts)
             text_managers(modem, sim, msg)
