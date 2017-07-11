@@ -13,6 +13,7 @@ Installation
 ------------
 
 ::
+
     git clone https://github.com/fmalina/texting.git
     cd texting/
     pip3 install -r requirements.txt
