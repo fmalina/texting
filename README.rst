@@ -25,4 +25,4 @@ Usage
 
 Plug in your GSM modem (USB Huawei dongle via `PyHumod <https://github.com/oozie/pyhumod>`_) or get account with `SMS Breadcast <https://www.smsbroadcast.co.uk>`_.
 
-To setup your SMS Broadcast credentials please follow `notes <NOTES.rst>`_
+To setup your SMS Broadcast credentials please follow `notes <NOTES.rst>`_.
