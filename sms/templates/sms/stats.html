@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Stats</h1>
+<p>Least used card: {{ suggest }}</p>
+<table>
+{% for date, sims in dates %}
+	{% if forloop.first %}
+	<thead>
+		<tr>
+			<th>Date</th>
+			{% for sim, count in sims %}
+			<th>{{ sim }}</th>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+	{% endif %}
+	<tr>
+		<th>{{ date }}</th>
+		{% for sim, count in sims %}
+			<td><a href="{% url 'day' sim.pk 'inbox' date|date:'Y/m/d' %}">{{ count }}</a></td>
+		{% endfor %}
+	</tr>
+{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}

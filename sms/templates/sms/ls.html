@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ item.verbose_name_plural }} <small><a href="{{ pane }}">+ add</a></small></h1>
+{% for l in ls %}
+    <p><b><a href="{{ pane }}/{{ l.pk }}">{% if l.cat %}{{ l.get_cat_display }}: {% endif %}{{ l|linebreaksbr }}</a>
+        <a href="{{ pane }}-del/{{ l.pk }}" class="del"
+        onclick="return confirm('Deleting {{ l }}. Are you sure?')">×</a>
+    </b><br>
+    {{ l.tpl }}</p>
+{% empty %}
+    <p>None listed.</p>
+{% endfor %}
+{% endblock %}

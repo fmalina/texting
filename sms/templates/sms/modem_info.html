@@ -1,0 +1,14 @@
+
+{% for human, tech, device in info %}
+    <!--i class="i err"></i-->
+    {{ human }}
+    {% if debug and tech %}
+        <br><small>GSM modem <b>{{ device }}</b>: {{ tech }}</small>
+    {% endif %}
+    {% if forloop.last and tech %}
+        <a href="#now" onclick="window.location.reload()">
+        <i class="i rel"></i>reload</a>.
+    {% else %}
+        <br>
+    {% endif%}
+{% endfor %}

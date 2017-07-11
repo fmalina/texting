@@ -1,0 +1,8 @@
+# sudo pip3 install 
+django          # web framework
+gunicorn        # backend server
+mysqlclient     # database layer
+python-dateutil # Easter greetings
+# pyserial        # talking to GSM modems
+-e git://github.com/pyserial/pyserial.git#egg=pyserial
+-e git://github.com/oozie/pyhumod.git#egg=pyhumod
