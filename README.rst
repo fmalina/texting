@@ -23,8 +23,7 @@ Installation
 Usage
 -----
 
-Plug in your GSM modem (USB Huawei dongle) or Get account with SMS Breadcast.
-GSM modem integration uses ` PyHumod <https://github.com/oozie/pyhumod>`_.
+Plug in your GSM modem (USB Huawei dongle via `PyHumod <https://github.com/oozie/pyhumod>`_) or get account with `SMS Breadcast <https://www.smsbroadcast.co.uk>`_.
 
 To setup your SMS breadcast credentials use `./manage.py shell`
 and follow `notes <NOTES.rst>`_
