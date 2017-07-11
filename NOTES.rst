@@ -20,19 +20,20 @@ GSM modems
 ==========
 Interesting AT commands
 
-+CLAC - list all commands supported
-+CNUM - gives a number on the sim card (not supported on older O2 SIMS)
-+COPS - show SIM operator
+- +CLAC - list all commands supported
+- +CNUM - gives a number on the sim card (not supported on older O2 SIMS)
+- +COPS - show SIM operator
 
 List of AT commands
 http://www.forensicswiki.org/wiki/AT_Commands
 
-List of GSM error codes
+List of GSM error codes/
 http://www.smssolutions.net/tutorials/gsm/gsmerrorcodes/
 
 Need your phone number?
 On Vodafone, Asda, press the following to request:
-*#100#  - your number
-*#147#  - last caller
-*#1345# - your onscreen credit
-*#06#   - show serial no
+
+- *#100#  - your number
+- *#147#  - last caller
+- *#1345# - your onscreen credit
+- *#06#   - show serial no
