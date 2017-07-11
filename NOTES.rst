@@ -27,7 +27,7 @@ Interesting AT commands
 List of AT commands
 http://www.forensicswiki.org/wiki/AT_Commands
 
-List of GSM error codes/
+List of GSM error codes
 http://www.smssolutions.net/tutorials/gsm/gsmerrorcodes/
 
 Need your phone number?
