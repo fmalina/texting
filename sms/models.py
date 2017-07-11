@@ -1,8 +1,7 @@
 from django.db.models import Model, CharField, BooleanField, TextField, IntegerField, ForeignKey, DateTimeField, DateField
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from datetime import datetime
-import settings_campaign
-import settings
 
 digits_only = lambda s: ''.join([x for x in s if x.isdigit()])
 
