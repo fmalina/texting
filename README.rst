@@ -22,7 +22,7 @@ Installation
 
 Features and usage
 ------------------
-Plug in your GSM modem (USB Huawei dongle) or get account with an SMS gateway such as `SMS Breadcast <https://www.smsbroadcast.co.uk>`_.
+Plug in your GSM modems (USB Huawei dongles) or get account with an SMS gateway such as `SMS Breadcast <https://www.smsbroadcast.co.uk>`_.
 
 Campaigns
 ~~~~~~~~~
@@ -30,9 +30,9 @@ Beauty of the Texting Centre comes from empowering you to send targetted, releva
 
 The campaign is setup using `settings_campaign.py <settings_campaign_example.py>`_ file and work by regular pulls of your `JSON data source (categorised names and numbers) <sms/tests/campaign-data.json>`_ from your ``API_URL`` with ``API_KEY`` as per your `crontab schedule <crontab.txt>`_, same ``API_URL`` gets notified via POST when sending completes.
 
-Templates (Campaign texts)
+Templates (campaign texts)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-Templates let you keep texts your are sending to your focus groups. Template name needs to match your focus group name for sending scheduled campaings from your data source.
+Templates let you keep texts you are sending to your focus groups. For sending scheduled campaings from your `data source <sms/tests/campaign-data.json>`_ the template name needs to match your focus group name.
 
 Followups are the "Hi, how did you get on?" type of texts sent out 2 days later to increase success of your campaign and get feedback.
 
@@ -41,7 +41,7 @@ Processing replies and incoming texts
 There are 2 ways of receiving the incoming texts:
 
  - Via API inbound call, where the SMS gateway makes a callback to Texting Centre with the received text
- - from the GSM modem via ``manage.py read_in`` command, which reads texts from SIM card into the database and cleans up the SIM
+ - From the GSM modem via ``manage.py read_in`` command, which reads texts from SIM card into the database and cleans up the SIM
 
 Texting centre allows staff to sort replies and **incoming texts** using **reply types**, categories based on which Texting Centre may react. Basic categories should be "Thanks", "End", "Bot", "Misc".
 
