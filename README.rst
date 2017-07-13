@@ -28,7 +28,7 @@ Campaigns
 ---------
 Beauty of the Texting Centre comes from empowering you to send targetted, relevant and scriptable campaingns out to your focus groups, so that your prospects and customers actually love the texts you send out to them and find them helpful.
 
-At present the campaign is setup using `settings_campaign.py <settings_campaign_example.py>` file and work by regular pulls of your `JSON data (categorised names and numbers) <sms/tests/campaign-data.json>` from your ``API_URL`` with ``API_KEY`` as per your `crontab schedule <crontab.txt>`.
+At present the campaign is setup using `settings_campaign.py <settings_campaign_example.py>`_ file and work by regular pulls of your `JSON data (categorised names and numbers) <sms/tests/campaign-data.json>`_ from your ``API_URL`` with ``API_KEY`` as per your `crontab schedule <crontab.txt>`_.
 
 Settings allow you to set your base text template ``TPL``, and your map of ``CATEGORIES`` matching your ``TEXTS``. ``TEXTS`` can be straight strings or templates with their relevant bits put in place based on category.
 
@@ -41,8 +41,7 @@ There are 2 ways of receiving the incoming texts:
  - Via API inbound call, where the SMS gateway makes a callback to Texting Centre with the received text
  - from the GSM modem via ``manage.py read_in`` command, which reads texts from SIM card into the database and cleans up the SIM
 
-Texting centre allows staff to sort incoming texts
- **replies** into **categories** and react based on this category. Basic categories should be "Thanks", "End", "Bot", "Misc".
+Texting centre allows staff to sort incoming **replies** and texts into **categories** and react based on this category. Basic categories should be "Thanks", "End", "Bot", "Misc".
 
  - "Thanks" is for marking texts where users thank you for your suggestion in multitude of ways. In a good campaing these should be prevalent.
  - "End" is for marking texts where users tell you to STOP texting them in expressive ways.
@@ -55,7 +54,8 @@ When texts are received they are automatically put into a category based on prev
 
 Greeting
 --------
-Each text in a campaing is run by ``custom_replace`` function specified in your compaign settings. This allows you to finish your text with a timely and seasonal greeting, for example by replacing the words "Greetings" in your template with "Have a good night" or "Merry Christmas" based on time and date. This is handled by the ``greeting`` module. Feel free to add seasons and it's greeting to it for your country. ``custom_replace`` also allows for postprocessing such as adjusting URLs for a particular category of users.
+Each text in a campaing is run by ``custom_replace`` function specified in your compaign settings. This allows you to end your text with a timely and seasonal greeting, for example by replacing the word "Greetings" in your template with "Have a good night" or "Merry Christmas" based on time and date.
+This is handled by the ``greeting`` module. Feel free to add seasons and it's greeting to it for your country. ``custom_replace`` also allows for postprocessing such as adjusting URLs for a particular category of users.
 
 SIM cards and Networks
 ----------------------
