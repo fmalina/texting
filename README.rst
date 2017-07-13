@@ -32,11 +32,7 @@ The campaign is setup using `settings_campaign.py <settings_campaign_example.py>
 
 Templates (campaign texts)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-Templates let you keep texts you are sending to your focus groups. For sending scheduled campaign
-
-
-
-s from your `data source <sms/tests/campaign-data.json>`_ the template name needs to match your focus group name.
+Templates let you keep texts you are sending to your focus groups. For sending scheduled campaigns from your `data source <sms/tests/campaign-data.json>`_ the template name needs to match your focus group name.
 
 Followups are the "Hi, how did you get on?" type of texts sent out 2 days later to increase success of your campaign and get feedback.
 
