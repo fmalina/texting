@@ -1,10 +1,8 @@
 Texting Centre
 ==============
-Texting Centre is a full featured enterprise level texting solution.
+Texting Centre is a full featured enterprise level texting solution to send, receive, process and categorise replies, autoreply and follow-up on texts to customers and prospects while keeping track of the communications and producing statistics.
 
-It can send, receive, process, categorise, autoreply and follow-up on texts to customers and prospects while keeping track of the communications and producing statistics.
-
-Texting Centre integrates with an external SMS gateway via REST API or with hardware GSM modems such as Huawei USB dongles. 
+Texting Centre integrates with an external SMS gateway via REST API or with Huawei USB GSM modems. 
 
 
 .. image:: https://github.com/fmalina/texting/blob/master/docs/screenshot.png?raw=true
@@ -22,7 +20,7 @@ Installation
 
 Features and usage
 ------------------
-Plug in your GSM modems (USB Huawei dongles) or get account with an SMS gateway such as `SMS Breadcast <https://www.smsbroadcast.co.uk>`_.
+Plug in your GSM modems (Huawei USB dongles) or get account with an SMS gateway such as `SMS Breadcast <https://www.smsbroadcast.co.uk>`_.
 
 Campaigns
 ~~~~~~~~~
