@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.core.mail import mail_admins
 from django.conf import settings
 from greeting import timely_greeting
-from sms.models import Sms
+from sms.models import Sms, Tpl
 from sms.stats import least_used
 from sms.parallel import parallel
 from sms import gateway_api
@@ -57,8 +57,8 @@ def send_one_text(modem, sim, txt, no, name=''):
         return no
 
 def send_texts(cat, nums):
-    txt = texting.TEXTS[texting.CATEGORIES[cat]]
-    txt = custom_replace(txt, cat, greetings)
+    tpl = Tpl.objects.get(name=cat)
+    txt = tpl.tpl.replace('{greeting}', greetings)
 
     devices, _modem, _info = list_devices()
     sim, modem = choose_modem_by_usage(devices)
