@@ -1,9 +1,9 @@
 from sms.management.commands.campaign import *
 from sms.management.commands.read_in import read_in
 
-FOLLOWUP_DAYS_BACK = 5  # this can be as low as 2
-                        # if followup runs daily without errors
+FOLLOWUP_DAYS_BACK = 5  # this could be 2 if followup runs daily without errors
 ALT_FOLLOWUP_CATEGORIES = ['Alt', 'Whole']
+
 
 def sort_by_sim(followup):
      # sort by SIM, so followups go out from the same SIM
@@ -13,11 +13,13 @@ def sort_by_sim(followup):
         ls.append(m.no)
     return sims
 
+
 def choose_modem_by_sim(devices, sim):
     """Return modem containing the SIM, None if no modem has it.
     """
     try: return [x for x in devices if x['sim']==sim][0]['modem']
     except IndexError: return
+
 
 def send_followups(devices, followups, txt):
     followup_sims = sort_by_sim(followups)
@@ -30,6 +32,7 @@ def send_followups(devices, followups, txt):
                 print('|', end="")
             else:
                 print('-', end="")
+
 
 def followup():
     """Followup runs once a day to avoid duplicates

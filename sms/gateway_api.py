@@ -1,11 +1,13 @@
 import urllib.parse
 import urllib.request
 
+
 def api_call(key, data):
     data.update({'username': key.user, 'password': key.pwd})
     data = urllib.parse.urlencode(data)
     req = urllib.request.Request(key.url, data.encode())
     return urllib.request.urlopen(req).read().decode()
+
 
 def send(key, to, from_, message, ref):
     """ Send text. Accepts key(SIM object with user+pwd) following string args.
@@ -15,13 +17,14 @@ def send(key, to, from_, message, ref):
     data = {'to': to, 'from': from_, 'message': message, 'ref': ref}
     response = api_call(key, data)
     for data_line in response.split("\n"):
-       l = data_line.split(':')
-       if   l[0] == "OK":
-           print("The message to %s was successful, with reference %s" % (l[1], l[2]))
-       elif l[0] == "BAD":
-           print("The message to %s was NOT successful. Reason: %s" % (l[1], l[2]))
-       elif l[0] == "ERROR":
-           print("There was an error with this request. Reason: %s" % l[1])
+        l = data_line.split(':')
+        if   l[0] == "OK":
+            print("The message to %s was successful, with reference %s" % (l[1], l[2]))
+        elif l[0] == "BAD":
+            print("The message to %s was NOT successful. Reason: %s" % (l[1], l[2]))
+        elif l[0] == "ERROR":
+            print("There was an error with this request. Reason: %s" % l[1])
+
 
 def receive(get):
     """ Receive inbound text. Accepts GET request dictionary with following keys.
@@ -32,6 +35,7 @@ def receive(get):
     msg = urllib.parse.unquote_plus(get["message"])
     return get["to"], get["from"], msg
 
+
 def balance(key):
     data = {'action': 'balance'}
     res = api_call(key, data).split(":")
@@ -39,6 +43,7 @@ def balance(key):
         print("SMS Broadcast balance is "+res[1])
     elif res[0] == "ERROR":
         print("There was an error with this request. Reason: "+res[1])
+
 
 def status(get):
     """ Return message status.
