@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.core.mail import mail_admins
 from django.conf import settings
-from greeting import timely_greeting
 from sms.models import Sms, Tpl
 from sms.stats import least_used
 from sms.parallel import parallel
@@ -9,14 +8,14 @@ from sms import gateway_api
 from modem import list_devices
 from datetime import datetime, timedelta
 from time import sleep
-
+import greeting
 import urllib.request
 import urllib.parse
 import random
 import json
 import humod
 
-greetings = timely_greeting()
+greetings = greeting.timely_greeting()
 
 
 def duplicates(no):
