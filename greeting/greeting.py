@@ -1,11 +1,21 @@
+""" Return timely greeting to end a conversation in English.
+
+>>> import greeting
+>>> print(greeting.timely_greeting())
+Have a good night
+
+"""
+
 from datetime import time, datetime, timedelta
 from dateutil.easter import easter
+
 
 def seasons_greeting(now=datetime.now()):
     yyyy = int(now.strftime('%Y'))
     
     def easter_season(yyyy):
-        """Easter Sunday falls on different day every year"""
+        """Easter Sunday falls on different day every year
+        """
         esun = datetime.combine(easter(yyyy), datetime.min.time())
         return esun-timedelta(days=7), esun+timedelta(days=7)
 
@@ -36,6 +46,7 @@ def seasons_greeting(now=datetime.now()):
             return greeting
     return False
 
+
 def timely_greeting(now=datetime.now()):
     dt = (['morning', time( 0, 0)],
           ['day',     time( 8,30)],
@@ -58,26 +69,3 @@ def timely_greeting(now=datetime.now()):
     if seasonal:
         return seasonal
     return greeting
-
-from django.test import TestCase
-
-class GreetingTestCase(TestCase):
-    def test_greeting(self):
-        """Greetings timely to current date and time."""
-        testcases = (
-            (datetime(2015, 1,  8         ), 'Happy New Year 2015'),
-            (datetime(2015, 2,  14        ), "Happy Valentine's Day"),
-            (datetime(2015, 2,  15, 10, 00), 'Have a good weekend'),
-            # Sunday night end of weekend
-            (datetime(2016, 7,  10, 19, 30), 'Have a good night'),
-            (datetime(2015, 2,  16, 6,  00), 'Have a good morning'),
-            (datetime(2015, 2,  16, 10, 00), 'Have a good day'),
-            (datetime(2015, 2,  16, 18, 00), 'Have a good night'),
-            (datetime(2015, 3,  29        ), 'Happy Easter'),
-            (datetime(2015, 10, 31        ), 'Happy Halloween'),
-            (datetime(2015, 12, 15        ), 'Merry Christmas'),
-            (datetime(2015, 12, 27        ), 'Merry Christmas'),
-            (datetime(2016, 1,  1         ), 'Happy New Year 2016'),
-        )
-        for dt, greeting in testcases:
-            self.assertEqual(timely_greeting(dt), greeting)
