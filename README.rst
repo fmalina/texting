@@ -26,13 +26,17 @@ Plug in your GSM modems (USB Huawei dongles) or get account with an SMS gateway 
 
 Campaigns
 ~~~~~~~~~
-Beauty of the Texting Centre comes from empowering you to send targetted, relevant and scriptable campaingns out to your focus groups, so that your prospects and customers actually love the texts you send out to them and find them helpful.
+Beauty of the Texting Centre comes from empowering you to send targetted, relevant and scriptable campaigns out to your focus groups, so that your prospects and customers actually love the texts you send out to them and find them helpful.
 
 The campaign is setup using `settings_campaign.py <settings_campaign_example.py>`_ file and work by regular pulls of your `JSON data source (categorised names and numbers) <sms/tests/campaign-data.json>`_ from your ``API_URL`` with ``API_KEY`` as per your `crontab schedule <crontab.txt>`_, same ``API_URL`` gets notified via POST when sending completes.
 
 Templates (campaign texts)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-Templates let you keep texts you are sending to your focus groups. For sending scheduled campaings from your `data source <sms/tests/campaign-data.json>`_ the template name needs to match your focus group name.
+Templates let you keep texts you are sending to your focus groups. For sending scheduled campaign
+
+
+
+s from your `data source <sms/tests/campaign-data.json>`_ the template name needs to match your focus group name.
 
 Followups are the "Hi, how did you get on?" type of texts sent out 2 days later to increase success of your campaign and get feedback.
 
