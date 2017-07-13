@@ -115,7 +115,7 @@ def get_cat(sms):
     return None
 
 class Tpl(Model):
-    name = CharField(max_length=40)
+    name = CharField(max_length=40, verbose_name="Name (match recipient group)")
     tpl = TextField("Body")
     
     def __str__(self):

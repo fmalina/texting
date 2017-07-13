@@ -12,14 +12,16 @@
     <li><a href="{% url 'status' m.i %}">Status</a></li>
 </ul></li>
 {% endfor %}
+
 <li class="sep">
-	<a href="{% url 'sort' %}"><i class="i msg"></i>Replies</a></li>
-<li><a href="{% url 'cats' %}"><i class="i tag"></i>Categories</a></li>
+	<a href="{% url 'tpls' %}"><i class="i msg"></i>Campaign texts</a></li>
+<li><a href="{% url 'sort' %}"><i class="i msg"></i>Incoming texts</a></li>
+<li><a href="{% url 'cats' %}"><i class="i tag"></i>Reply types</a></li>
 <li><a href="{% url 'sims' %}"><i class="i sim"></i>SIM cards</a></li>
 <li><a href="{% url 'nets' %}"><i class="i net"></i>Networks</a></li>
 <li><a href="{% url 'stat' %}"><i class="i log"></i>Stats</a></li>
     
 <li class="sep">
-    <a href="https://github.com/oozie/pyhumod/blob/master/README.rst">
+    <a href="https://github.com/fmalina/texting/blob/master/README.rst">
 		<i class="i doc"></i>Docs</a></li>
 </ul>
