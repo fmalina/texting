@@ -5,11 +5,13 @@ from datetime import datetime
 
 digits_only = lambda s: ''.join([x for x in s if x.isdigit()])
 
+
 def format_no(no):
     n = digits_only(str(no))
     if n:
         return n[:-6]+' '+n[-6:-3]+' '+n[-3:]
     return no # Voicemail, T-Mobile, hidden caller ID
+
 
 def safe_no(no):
     no = digits_only(no)
@@ -22,10 +24,10 @@ class Net(Model):
     name = CharField("Network Operator", max_length=8)
     note = TextField("Notes",
         help_text="Customer services number, top-up and packages details", blank=True)
-    
+
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name = 'Network'
         verbose_name_plural = 'Networks'
@@ -50,7 +52,7 @@ class Sim(Model):
         null=True, blank=True)
     note = TextField("Any other notes?",
         help_text="About the package, topup etc.", blank=True)
-    
+
     def __str__(self):
         u = ''
         if self.net: u += '%s' % self.net
@@ -58,18 +60,19 @@ class Sim(Model):
         elif not self.net:
             u += 'Unknown'
         return u
-    
+
     def nice_no(self):
         return format_no(self.no or '...')
-    
+
     def get_absolute_url(self):
         return reverse('edit_sim', kwargs={'pk': self.pk})
-    
+
     class Meta:
         unique_together = ordering = ('net', 'ref')
         verbose_name = 'SIM'
         verbose_name_plural = 'SIMs'
-    
+
+
 def gateway_sim():
     return Sim.objects.filter(net__name='SMSBCAST').first()
 
@@ -88,7 +91,7 @@ class Cat(Model):
 class Sms(Model):
     TYPE = [('s', 'Sent'), ('r', 'Received')]
     STATE = [('d', 'Delivered'), ('e', 'Expired'), ('f', 'Failed')]
-    
+
     sim = ForeignKey(Sim, verbose_name="SIM", editable=False)
     no  = CharField("Phone number", max_length=15)
     txt = TextField("Text")
@@ -96,10 +99,10 @@ class Sms(Model):
     typ = CharField("Sent or Received", max_length=1, choices=TYPE, editable=False)
     state = CharField("Status", max_length=1, choices=STATE, blank=True, null=True, editable=False)
     cat = ForeignKey(Cat, blank=True, null=True)
-    
+
     def __str__(self):
         return '%s: %s' % (self.no, self.txt)
-    
+
     class Meta:
         ordering = ['-pk']
 
@@ -114,13 +117,14 @@ def get_cat(sms):
         return fr
     return None
 
+
 class Tpl(Model):
     name = CharField(max_length=40, verbose_name="Name (match recipient group)")
     tpl = TextField("Body")
-    
+
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name = 'Template'
         verbose_name_plural = 'Templates'
@@ -130,10 +134,10 @@ class Log(Model):
     day = DateField()
     sim = ForeignKey(Sim)
     sum = IntegerField()
-    
+
     def __str__(self):
         return '%s %s' % (self.day, self.sim)
-    
+
     class Meta:
         unique_together = ('day', 'sim')
         verbose_name = 'Daily total'
