@@ -9,7 +9,6 @@ from sms import gateway_api
 from modem import list_devices
 from datetime import datetime, timedelta
 from time import sleep
-import settings_campaign as texting
 
 import urllib.request
 import urllib.parse
@@ -19,10 +18,12 @@ import humod
 
 greetings = timely_greeting()
 
+
 def duplicates(no):
     now = datetime.now()
     return Sms.objects.filter(typ='s', no=no,
         at__range=(now - timedelta(days=180), now)).count() > 1
+
 
 def choose_modem_by_usage(devices):
     """Combine SIM stats and connected devices, ignoring unused SIMs
@@ -34,14 +35,15 @@ def choose_modem_by_usage(devices):
             if m['sim']==sim:
                 m['sent'] = sent
                 lfu.append(m)
-    l = lfu[0] # later this could give alternative if modem doesn't respond
+    l = lfu[0]  # later this could give alternative if modem doesn't respond
     return l['sim'], l['modem']
+
 
 def send_one_text(modem, sim, txt, no, name=''):
     if name:
         txt = txt.replace("Hi,", "Hi %s," % name)
     sms = Sms(typ='s', sim=sim, txt=txt, no=no)
-    if texting.RUN and modem:
+    if settings.TEXTING_RUN and modem:
         try:
             modem.sms_send(sms.no, sms.txt)
             sms.save()
@@ -51,10 +53,11 @@ def send_one_text(modem, sim, txt, no, name=''):
             print('ERROR', e, no)
             sleep(1)
             return False
-    elif texting.RUN:
+    elif settings.TEXTING_RUN:
         sms.save() # save 1st, so pk is ready for status update
         gateway_api.send(sim, sms.no, sim.no, sms.txt, sms.pk)
         return no
+
 
 def send_texts(cat, nums):
     tpl = Tpl.objects.get(name=cat)
@@ -75,26 +78,29 @@ def send_texts(cat, nums):
     mark_used(sent)
     return i+1, modem, sim
 
+
 def text_managers(modem, sim, msg):
     for no in settings.MANAGER_PHONE.split(','):
         send_one_text(modem, sim, msg, no)
 
+
 def mark_used(sent):
     nums = ', '.join(sent)
     data = urllib.parse.urlencode({'numbers': nums}).encode()
-    rqst = urllib.request.Request(texting.API_URL, data)
+    rqst = urllib.request.Request(settings.TEXTING_API_URL, data)
     return urllib.request.urlopen(rqst).read()
 
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        datastr = urllib.request.urlopen(texting.API_URL, timeout=15).read().decode()
+        datastr = urllib.request.urlopen(settings.TEXTING_API_URL,
+                                         timeout=15).read().decode()
         data = json.loads(datastr)
         alerts = []
         for cat, nums in data.items():
             if nums:
                 i, modem, sim = send_texts(cat, nums)
                 alerts.append('%s %s' % (i, cat.lower()))
-        if texting.RUN and alerts:
+        if settings.TEXTING_RUN and alerts:
             msg = ', '.join(alerts)
             text_managers(modem, sim, msg)
