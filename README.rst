@@ -63,8 +63,8 @@ For communications with Huawai GSM Dongles we maintain `PyHumod <https://github.
 
 Greeting
 ~~~~~~~~
-This allows you to end your text with a timely and seasonal greeting by replacing the keyword "{greeting}" in your template with "Have a good night" or "Merry Christmas" based on time and date.
-This is handled by the ``greeting`` module. Feel free to add seasons and it's greeting to it for your country.
+Greeting allows you to end your text with a timely and seasonal greeting by replacing the keyword "{greeting}" in your template with "Have a good night" or "Merry Christmas" based on time and date.
+This is handled by the ``greeting.py`` module. Feel free to add season greetings for your country.
 
 
 Dual Licensing
