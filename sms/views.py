@@ -10,7 +10,6 @@ from sms.stats import get_stats, least_used
 from paging import simple_paging
 import datetime as dt
 import time, random
-import settings
 import unicodedata
 
 
@@ -125,7 +124,7 @@ def send(r, dev=0, no=''):
         'modems': modems, 'info': info})
 
 def api_inbound(request):
-    if not 'to' in request.GET:
+    if 'to' not in request.GET:
         return HttpResponse('Listening...')
     _to, no, txt = gateway_api.receive(request.GET)
     # TODO sort out UTF8mb4 handling
@@ -138,7 +137,7 @@ def api_inbound(request):
     return HttpResponse('ok')
 
 def api_status_update(request):
-    if not 'to' in request.GET:
+    if 'to' not in request.GET:
         return HttpResponse('Listening...')
     _to, ref, _smsref, status = gateway_api.status(request.GET)
     if ref:

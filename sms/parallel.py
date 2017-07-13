@@ -1,4 +1,8 @@
+""" Prototype for parallel sending of texts using multiple GSM modems at once
+"""
+
 from multiprocessing import Process
+
 
 def parallel(target_func, args_ls):
     proc = []
@@ -9,8 +13,10 @@ def parallel(target_func, args_ls):
     for p in proc:
         p.join()
 
+
 if __name__ == '__main__':
-    import time, random
+    import time
+    import random
 
     def test(modem, numbers):
         for no in numbers:

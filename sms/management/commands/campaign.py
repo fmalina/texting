@@ -1,9 +1,7 @@
 from django.core.management.base import BaseCommand
-from django.core.mail import mail_admins
 from django.conf import settings
 from sms.models import Sms, Tpl
 from sms.stats import least_used
-from sms.parallel import parallel
 from sms import gateway_api
 from modem import list_devices
 from datetime import datetime, timedelta
@@ -68,6 +66,7 @@ def send_texts(cat, nums):
     sent = []
     print('\n%s  %s' % (cat.upper(), sim))
     print('%s (%s chars)' % (txt, len(txt)))
+    i = 0
     for i, number_name in enumerate(nums):
         no, name = number_name
         ok = True
@@ -91,7 +90,7 @@ def mark_used(sent):
 
 
 class Command(BaseCommand):
-    def handle(self, *args, **kwargs):
+    def handle(self, *args):
         datastr = urllib.request.urlopen(settings.TEXTING_API_URL,
                                          timeout=15).read().decode()
         data = json.loads(datastr)

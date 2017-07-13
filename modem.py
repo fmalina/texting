@@ -8,9 +8,11 @@ pre  = '/dev/cu.HUAWEIMobile-'
 # m = humod.Modem(pre+'Modem', pre+'Pcui')
 # print(m.show_model())
 
+
 def get_modems():
     """Return a list of modems plugged into the computer.
-    Switched to text mode."""
+    Switched to text mode.
+    """
     ports = list_ports.comports()
     ports = [s.device for s in ports if s.device.startswith(pre)]
     no1 = True if 'Modem' in ''.join(ports) else False
@@ -25,18 +27,20 @@ def get_modems():
                 pre+str(pair[1])
             )
             modems[i].enable_textmode(True)
-        except OSError as e:
-            info.append(('Power off.', str(e), i+1))
         except SerialException as e:
             info.append(('Not connected.', str(e), i+1))
+        except OSError as e:
+            info.append(('Power off.', str(e), i+1))
         except humod.errors.AtCommandError as e:
             info.append(('', str(e), i+1))
             del modems[i]
     return modems, info
 
+
 def list_devices(dev=None):
     """Return a list with gateway SIM and GSM modems with their SIM cards,
-    current device (SIM+modem or Gateway) and info messages if any."""
+    current device (SIM+modem or Gateway) and info messages if any.
+    """
     modems, info = get_modems()
     gateway = gateway_sim()
     
@@ -64,6 +68,6 @@ def list_devices(dev=None):
         device = {'i': i, 'modem': modem, 'sim': sim, 'current': bool(ok)}
         devices.append(device)
         if ok: current = device
-    
+
     devices = sorted(devices, key=lambda k: str(k['sim']))
     return devices, current, info

@@ -1,6 +1,5 @@
-from django.db.models import Model, CharField, BooleanField, TextField, IntegerField, ForeignKey, DateTimeField, DateField
+from django.db import models
 from django.core.urlresolvers import reverse
-from django.conf import settings
 from datetime import datetime
 
 digits_only = lambda s: ''.join([x for x in s if x.isdigit()])
@@ -20,10 +19,10 @@ def safe_no(no):
     return no
 
 
-class Net(Model):
-    name = CharField("Network Operator", max_length=8)
-    note = TextField("Notes",
-        help_text="Customer services number, top-up and packages details", blank=True)
+class Net(models.Model):
+    name = models.CharField("Network Operator", max_length=8)
+    note = models.TextField("Notes", blank=True,
+        help_text="Customer services number, top-up and packages details")
 
     def __str__(self):
         return self.name
@@ -33,24 +32,24 @@ class Net(Model):
         verbose_name_plural = 'Networks'
 
 
-class Sim(Model):
-    imsi = CharField(max_length=25, null=True, blank=True, editable=False)
-    no = CharField("Phone number", max_length=11,
+class Sim(models.Model):
+    imsi = models.CharField(max_length=25, null=True, blank=True, editable=False)
+    no = models.CharField("Phone number", max_length=11,
         null=True, blank=True, help_text="registered for this SIM")
-    serial = CharField("Serial No", max_length=25,
+    serial = models.CharField("Serial No", max_length=25,
         null=True, blank=True, help_text="The long number written on the SIM")
-    net = ForeignKey(Net, verbose_name="Operator",
+    net = models.ForeignKey(Net, verbose_name="Operator",
         null=True, blank=True, help_text="What network operator is it on?")
-    ref = IntegerField("Reference #",
+    ref = models.IntegerField("Reference #",
         null=True, blank=True, help_text="shows in the sidebar")
-    active = BooleanField(default=False)
-    url = CharField("URL", max_length=75,
+    active = models.BooleanField(default=False)
+    url = models.CharField("URL", max_length=75,
         null=True, blank=True, help_text="Gateway/SIM topup URL")
-    user = CharField("Username", max_length=25,
+    user = models.CharField("Username", max_length=25,
         null=True, blank=True, help_text="Gateway/SIM topup credentials")
-    pwd  = CharField("Password", max_length=25,
+    pwd = models.CharField("Password", max_length=25,
         null=True, blank=True)
-    note = TextField("Any other notes?",
+    note = models.TextField("Any other notes?",
         help_text="About the package, topup etc.", blank=True)
 
     def __str__(self):
@@ -77,8 +76,8 @@ def gateway_sim():
     return Sim.objects.filter(net__name='SMSBCAST').first()
 
 
-class Cat(Model):
-    name = CharField(max_length=40)
+class Cat(models.Model):
+    name = models.CharField(max_length=40)
 
     def __str__(self):
         return self.name
@@ -88,17 +87,19 @@ class Cat(Model):
         verbose_name_plural = 'Categories'
 
 
-class Sms(Model):
+class Sms(models.Model):
     TYPE = [('s', 'Sent'), ('r', 'Received')]
     STATE = [('d', 'Delivered'), ('e', 'Expired'), ('f', 'Failed')]
 
-    sim = ForeignKey(Sim, verbose_name="SIM", editable=False)
-    no  = CharField("Phone number", max_length=15)
-    txt = TextField("Text")
-    at  = DateTimeField(default=datetime.now, editable=False)
-    typ = CharField("Sent or Received", max_length=1, choices=TYPE, editable=False)
-    state = CharField("Status", max_length=1, choices=STATE, blank=True, null=True, editable=False)
-    cat = ForeignKey(Cat, blank=True, null=True)
+    sim = models.ForeignKey(Sim, verbose_name="SIM", editable=False)
+    no = models.CharField("Phone number", max_length=15)
+    txt = models.TextField("Text")
+    at = models.DateTimeField(default=datetime.now, editable=False)
+    typ = models.CharField("Sent or Received", max_length=1, choices=TYPE,
+        editable=False)
+    state = models.CharField("Status", max_length=1, choices=STATE,
+        blank=True, null=True, editable=False)
+    cat = models.ForeignKey(Cat, blank=True, null=True)
 
     def __str__(self):
         return '%s: %s' % (self.no, self.txt)
@@ -118,9 +119,10 @@ def get_cat(sms):
     return None
 
 
-class Tpl(Model):
-    name = CharField(max_length=40, verbose_name="Name (match recipient group)")
-    tpl = TextField("Body")
+class Tpl(models.Model):
+    name = models.CharField(max_length=40,
+        verbose_name="Name (match recipient group)")
+    tpl = models.TextField("Body")
 
     def __str__(self):
         return self.name
@@ -130,10 +132,10 @@ class Tpl(Model):
         verbose_name_plural = 'Templates'
 
 
-class Log(Model):
-    day = DateField()
-    sim = ForeignKey(Sim)
-    sum = IntegerField()
+class Log(models.Model):
+    day = models.DateField()
+    sim = models.ForeignKey(Sim)
+    sum = models.IntegerField()
 
     def __str__(self):
         return '%s %s' % (self.day, self.sim)
