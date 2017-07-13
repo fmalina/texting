@@ -7,7 +7,7 @@ It can send, receive, process, categorise, autoreply and follow-up on texts to c
 Texting Centre integrates with an external SMS gateway via REST API or with hardware GSM modems such as Huawei USB dongles. 
 
 
-.. image:: https://github.com/fmalina/texting/blob/master/README-screenshot.png?raw=true
+.. image:: https://github.com/fmalina/texting/blob/master/docs/screenshot.png?raw=true
 
 Installation
 ------------
@@ -28,11 +28,11 @@ Campaigns
 ~~~~~~~~~
 Beauty of the Texting Centre comes from empowering you to send targetted, relevant and scriptable campaigns out to your focus groups, so that your prospects and customers actually love the texts you send out to them and find them helpful.
 
-The campaign is setup using `settings_campaign.py <settings_campaign_example.py>`_ file and work by regular pulls of your `JSON data source (categorised names and numbers) <sms/tests/campaign-data.json>`_ from your ``API_URL`` with ``API_KEY`` as per your `crontab schedule <crontab.txt>`_, same ``API_URL`` gets notified via POST when sending completes.
+The campaign is setup using **templates** and work by regular pulls of your `JSON data source (categorised names and numbers) <sms/tests/campaign-data.json>`_ from your ``TEXTING_API_URL`` with ``TEXTING_API_KEY`` as per your `crontab schedule <crontab.txt>`_ and `settings_local.py <settings_local_example.py>`_, same ``TEXTING_API_URL`` gets notified via POST when sending completes.
 
 Templates (campaign texts)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-Templates let you keep texts you are sending to your focus groups. For sending scheduled campaigns from your `data source <sms/tests/campaign-data.json>`_ the template name needs to match your focus group name.
+Templates are texts you are sending to your focus groups. For sending scheduled campaigns the template name needs to match your focus group name from your `data source <sms/tests/campaign-data.json>`_ .
 
 Followups are the "Hi, how did you get on?" type of texts sent out 2 days later to increase success of your campaign and get feedback.
 
@@ -59,7 +59,7 @@ SIM cards and Networks
 When sending texts using multiple GSM modems (dongles), Texting Centre allows you to add and manage the **Networks** and **SIM cards** tucked in your GSM dongles, tracking how many texts were sent using each SIM card per day and showing this in the **Stats**. This helps not to go over a certain limit as agreed with your operator for your plan.
 
 When using an SMS gateway API, it will be your only network such as SMSBCAST and it's credentials are to be stored as a SIM using that Network.
-To setup your SMS Broadcast credentials please follow `notes <NOTES.rst>`_.
+To setup your SMS Broadcast credentials please follow `notes <docs/NOTES.rst>`_.
 
 For communications with Huawai GSM Dongles we maintain `PyHumod <https://github.com/oozie/pyhumod>`_ driver, using USB through PySerial.
 
