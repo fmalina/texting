@@ -11,8 +11,8 @@ https://api.smsbroadcast.co.uk/api-adv.php
 
     from sms.models import Sim, Net
     
-    net, _c = Net.objects.get_or_create(name='SMSBCAST')
-    key, _c = Sim.objects.get_or_create(net=net,
+    net, created = Net.objects.get_or_create(name='SMSBCAST')
+    key, created = Sim.objects.get_or_create(net=net,
         url='https://api.smsbroadcast.co.uk/api-adv.php')
 
 
