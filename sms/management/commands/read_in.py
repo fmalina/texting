@@ -2,7 +2,7 @@
 from django.core.management.base import BaseCommand
 from modem import list_devices
 from humod.siminfo import full_sms_list
-from sms.models import Sms, Sim, safe_no
+from sms.models import Sms, Sim, safe_no, get_cat
 import settings
 
 def read_in():
