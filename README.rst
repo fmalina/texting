@@ -28,7 +28,7 @@ Campaigns
 ~~~~~~~~~
 Beauty of the Texting Centre comes from empowering you to send targetted, relevant and scriptable campaingns out to your focus groups, so that your prospects and customers actually love the texts you send out to them and find them helpful.
 
-The campaign is setup using `settings_campaign.py <settings_campaign_example.py>`_ file and work by regular pulls of your `JSON data source (categorised names and numbers) <sms/tests/campaign-data.json>`_ from your ``API_URL`` with ``API_KEY`` as per your `crontab schedule <crontab.txt>`_.
+The campaign is setup using `settings_campaign.py <settings_campaign_example.py>`_ file and work by regular pulls of your `JSON data source (categorised names and numbers) <sms/tests/campaign-data.json>`_ from your ``API_URL`` with ``API_KEY`` as per your `crontab schedule <crontab.txt>`_, same ``API_URL`` gets notified via POST when sending completes.
 
 Templates (Campaign texts)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
