@@ -22,5 +22,8 @@ class NetForm(forms.ModelForm):
         exclude = []
 
 class SendForm(forms.Form):
-    no  = forms.CharField(label='Phone', widget=forms.Textarea(attrs={'cols':50, 'rows':1,}))
-    txt = forms.CharField(label='Text',  widget=forms.Textarea(attrs={'cols':50, 'rows':3,}))
+    no = forms.CharField(label='Phone',
+        widget=forms.Textarea(attrs={'cols':50, 'rows':1,}),
+        help_text="Enter multiple numbers separated by a comma")
+    txt = forms.CharField(label='Text', 
+        widget=forms.Textarea(attrs={'cols':50, 'rows':3,}))
