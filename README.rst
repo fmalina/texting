@@ -66,4 +66,22 @@ To setup your SMS Broadcast credentials please follow `notes <NOTES.rst>`_.
 
 For communications with Huawai GSM Dongles we maintain `PyHumod <https://github.com/oozie/pyhumod>`_ driver, using USB through PySerial.
 
+Dual Licensing
+--------------
+
+Commercial license
+~~~~~~~~~~~~~~~~~~
+If you want to use Texting Centre to develop and run commercial campaigns, projects and applications, the Commercial license is the appropriate license. With this option, your source code is kept proprietary.
+
+Once purchased, you are granted a commercial BSD style license and all set to use Texting Centre in your business.
+
+`Small Team License (€110) <https://fmalina.github.io/pay.html?amount=110>`_
+Small Team License for up to 8 developers
+
+`Organization License (€320) <https://fmalina.github.io/pay.html?amount=320>`_
+Commercial Organization License for Unlimited developers
+
+Open source license
+~~~~~~~~~~~~~~~~~~~
+If you are creating an open source application under a license compatible with the GNU GPL license v3, you may use Texting Centre under the terms of the GPLv3.
 
