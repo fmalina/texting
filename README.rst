@@ -76,10 +76,10 @@ If you want to use Texting Centre to develop and run commercial campaigns, proje
 
 Once purchased, you are granted a commercial BSD style license and all set to use Texting Centre in your business.
 
-`Small Team License (€110) <https://fmalina.github.io/pay.html?amount=110>`_
+`Small Team License (£900) <https://fmalina.github.io/pay.html?amount=900&msg=Texting_Centre_Team_License>`_
 Small Team License for up to 8 developers
 
-`Organization License (€320) <https://fmalina.github.io/pay.html?amount=320>`_
+`Organization License (£3200) <https://fmalina.github.io/pay.html?amount=3200&msg=Texting_Centre_Organisation_License>`_
 Commercial Organization License for Unlimited developers
 
 Open source license
