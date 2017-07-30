@@ -17,7 +17,8 @@ a:hover,a:active{color:#E00073;text-decoration:none}
 #s li li a{padding:4px 0;display:inline-block;font-weight:normal}
 #s li ul{padding:5px 0 0 0;display:none}
 #s b{cursor:pointer}
-#s .sep{border-top:1px solid #ddd}
+.sep{border-top:1px solid #ddd}
+.sep-hr{padding-top:1em;margin-bottom:1em}
 #s .curr b a{color:black}
 #s .curr b i{opacity:1}
 #s .curr ul{display:block}

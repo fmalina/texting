@@ -95,7 +95,10 @@ def send(r, dev=0, no=''):
     
     initial = {}
     no = safe_no(no)
-    if no: initial['no'] = no
+    texts = []
+    if no:
+        initial['no'] = no
+        texts = Sms.objects.filter(no=no)
     form = SendForm(r.POST or None, initial=initial)
     if device and form.is_valid():
         cd = lambda k: form.cleaned_data.get(k, '')
@@ -120,6 +123,7 @@ def send(r, dev=0, no=''):
         return redirect('box', dev=dev, box='inbox')
     return render(r, 'sms/form.html', {
         'form': form,
+        'texts': texts,
         'title': 'Send a text',
         'modems': modems, 'info': info})
 
