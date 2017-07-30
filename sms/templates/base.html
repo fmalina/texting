@@ -2,6 +2,7 @@
 <head>
 <title>{% block title%}{% endblock %}Texting centre</title>
 <meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 {% block extrastyles %}
 <style>{% include "sms/style.css" %}</style>
 {% endblock %}
@@ -9,13 +10,14 @@
 <body>
 <div id="w">
     <header id="h">
-        <i class="i msg"></i>Texting centre
+        <a href="/" class="home-link"><i class="i msg"></i>Texting centre</a>
+        <small class="menu-link"> &nbsp; <a href="#s">menu</a></small>
     </header>
-    <nav id="s">{% include "sms/nav.html" %}</nav>
     <main id="c">
         {% if info %}<div class="info">{% include "sms/modem_info.html" %}</div>{% endif %}
         {% block content %}{% endblock %}
     </main>
+    <nav id="s">{% include "sms/nav.html" %}</nav>
     <footer class="clear"></footer>
 </div>
 </body>

@@ -16,16 +16,21 @@ function bg_task(link, hide_id){
 }
 </script>
 
-{{ paging }}
 <h1>{{ title }} <small>({{ count }})</small></h1>
+{{ paging }}
+
 {% for t in texts %}
-<p id="t{{ t.id }}">
+<div id="t{{ t.id }}">
+<div class="bubble">{{ t.txt }}</div>
+<div class="bubble-meta">
 	{% if t.txt__count > 1 %}({{ t.txt__count }}) {% endif %}
-	{{ t.at }} {{ t.no }}: {{ t.txt }}<br>
+	{{ t.at }} {{ t.no }}<br>
 	{% for c in cats %}
 		<a href="{% url 'tag' c.id t.id %}"
 			onclick="bg_task(this, 't{{ t.id }}');return false;">{{ c.name }}</a>
-		{% if not forloop.last %} / {% endif %}
+		{% if not forloop.last %} &middot; {% endif %}
 	{% endfor %}
+</div>
+</div>
 {% endfor %}
 {% endblock %}
