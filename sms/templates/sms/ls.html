@@ -5,8 +5,8 @@
     <p><b><a href="{{ pane }}/{{ l.pk }}">{% if l.cat %}{{ l.get_cat_display }}: {% endif %}{{ l|linebreaksbr }}</a>
         <a href="{{ pane }}-del/{{ l.pk }}" class="del"
         onclick="return confirm('Deleting {{ l }}. Are you sure?')">×</a>
-    </b><br>
-    {{ l.tpl }}</p>
+    </b></p>
+    {% if l.tpl %}<div class="bubble s">{{ l.tpl }}</div>{% endif %}
 {% empty %}
     <p>None listed.</p>
 {% endfor %}

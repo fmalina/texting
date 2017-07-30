@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}{{ box.title }}: {% endblock %}
 {% block content %}
-{% if paging %}{{ paging }}{% endif %}
 <h1>
     {{ box.title }}
     {% if texts %}
@@ -11,28 +10,31 @@
         <small><a href="{% url 'send' device %}">send a text<i class="i send"></i></a></small>
     {% endif %}
 </h1>
+{% if paging %}{{ paging }}{% endif %}
 {% if sent_cnt or recd_cnt %}<p>
 	{{ sent_cnt }} sent, 
 	{{ recd_cnt }} received
 {% endif %}
-<table style="width:100%">
-    {% for m in texts %}
+
+{% for m in texts %}
     {% ifchanged m.at|date:"j/n/y" %}
-        </table>
-            <h3>{{ m.at|date:"j.n.'y" }}</h3>
-        <table>
+        <h3>{{ m.at|date:"j.n.'y" }}</h3>
     {% endifchanged %}
-    <tr class="{% cycle 'odd' 'even' %}">
-        <td><i class="i {{ m.typ }}"title="{{ m.typ }}"></i></td>
-        <td style="width:100px">{{ m.no }}</td>
-        <td style="max-width:350px">{{ m.txt }}</td>
-        <td>{{ m.at|date:"j.n.'y<\b\r>G:i:s"|safe }}</td>
-        <td>{% if m.no and device %}<a href="{% url 'reply' device m.no|slugify %}" title="reply"><i class="i rep"></i></a>{% endif %}</td>
-        <td><a href="{% if from_db %}{% url 'rm' 'db' m.id %}{% else %}{% url 'rm' device m.id %}{% endif %}" title="trash"><i class="i bin"></i></a></td>
-    </tr>
-    {% empty %}
-        <p>No messages.</p>
-    {% endfor %}
-</table>
+        <b>{{ m.at|date:"G:i" }}</b> &nbsp; {{ m.no }}
+        <div class="bubble {{ m.typ }}">
+            {{ m.txt }}
+        </div>
+        <div class="bubble-meta">
+            {% if m.no and device %}
+                <a href="{% url 'reply' device m.no|slugify %}" title="reply">
+                    <i class="i rep"></i></a>
+            {% endif %}
+            <a href="{% if from_db %}{% url 'rm' 'db' m.id %}{% else %}{% url 'rm' device m.id %}{% endif %}" title="trash">
+                <i class="i bin"></i></a>
+        </div>
+{% empty %}
+    <p>No messages.</p>
+{% endfor %}
+
 <p><b>Source:</b> {{ source }}
 {% endblock %}

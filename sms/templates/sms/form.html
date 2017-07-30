@@ -7,16 +7,18 @@
     {% ifchanged m.at|date:"j/n/y" %}
         <h3>{{ m.at|date:"j.n.'y" }}</h3>
     {% endifchanged %}
-    <p><a href="{% url 'rm' 'db' m.id %}">
-        <i class="i bin"></i></a>
-        {{ m.at|date:"G:i:s"|safe }}: {{ m.txt }}</p>
+    <div class="bubble {{ m.typ }}">{{ m.txt|urlize }}</div>
+    <div class="bubble-meta {{ m.typ }}">
+        <a href="{% url 'rm' 'db' m.id %}">
+            <i class="i bin"></i></a>
+            {{ m.at|date:"G:i:s"|safe }}</div>
 {% endfor %}
 {% if texts %}<div class="ser sep-hr"></div>{% endif %}
 
 <form action="#" method="post">
-<table>
-{{ form.as_table }}
-</table>
+<ul>
+{{ form.as_ul }}
+</ul>
 <p><button type="submit">Save</button></p>
 </form>
 {% endblock %}
