@@ -20,7 +20,7 @@
     {% ifchanged m.at|date:"j/n/y" %}
         <h3>{{ m.at|date:"j.n.'y" }}</h3>
     {% endifchanged %}
-        <b>{{ m.at|date:"G:i" }}</b> &nbsp; {{ m.no }}
+        <b>{{ m.at|date:"g:i A" }}</b> &nbsp; {{ m.no }}
         <div class="bubble {{ m.typ }}">
             {{ m.txt }}
         </div>
