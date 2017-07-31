@@ -90,7 +90,7 @@ def mark_used(sent):
 
 
 class Command(BaseCommand):
-    def handle(self, *args):
+    def handle(self, *args, **kwargs):
         datastr = urllib.request.urlopen(settings.TEXTING_API_URL,
                                          timeout=15).read().decode()
         data = json.loads(datastr)
