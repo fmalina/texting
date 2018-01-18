@@ -1,0 +1,15 @@
+[Unit]
+Description=texting
+After=network.target
+
+[Service]
+PIDFile=/tmp/texting.pid
+User=f
+Group=f
+WorkingDirectory=/home/f/SITES/texting
+ExecStart=/usr/local/bin/gunicorn wsgi:application -p /tmp/texting.pid -b 127.0.0.1:8085 -w 1
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target
