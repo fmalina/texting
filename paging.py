@@ -3,14 +3,14 @@ Generic pagination reusable at view level.
 
 Paging middleware needs installing in the settings:
 
-    MIDDLEWARE_CLASSES = (
+    MIDDLEWARE = (
         ... almost at the end...
-        'paging.PagingMiddleware',
+        'paging.paging_middleware',
 
 Use in a view like so:
 
     from paging import simple_paging
-    
+
     def listings(request):
         ls = Listing.objects.all()
         ls, count, paging = simple_paging(request, ls, 100)
@@ -19,7 +19,7 @@ Use in a view like so:
             })
 
 Include paging in your listings template:
-    
+
     {{ paging }}
 
 """
@@ -28,38 +28,44 @@ from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponseRedirect
 
 
-class PagingMiddleware(object):
-    def process_request(self, request):
+def paging_middleware(get_response):
+    def middleware(request):
         try:
             request.page = int(request.GET.get('page', 1))
-        except ValueError: # redirect invalid page numbers to root page
+        except ValueError:  # redirect invalid page numbers to root page
             return HttpResponseRedirect(request.path)
+        response = get_response(request)
+        return response
+
+    return middleware
+
 
 def simple_paging(request, qs, limit, custom_render=False):
     pager = Paginator(qs, limit)
-    try: 
+    try:
         page_obj = pager.page(request.page)
         qs = page_obj.object_list
     except EmptyPage:
         page_obj = {}
         qs = qs.none()
-    
+
     pages = pager.page_range
     count = pager.count
-    
+
     if custom_render:
         return qs, count, pages
-    
+
     paginate = render_paging(request, pages, page_obj, count, limit)
-    
+
     return qs, count, paginate
+
 
 def render_paging(request, pages, page_obj, count, limit):
     pages = sample(pages, request.page)
-    
+
     get = request.GET.copy()
     get.pop('page', None)
-    
+
     return render_to_string('pagination.html', {
         'path': request.path_info,
         'mobile': bool(getattr(request, 'mobile', 0)),
@@ -69,8 +75,9 @@ def render_paging(request, pages, page_obj, count, limit):
         'getvars': '&' + get.urlencode() if get else ''
     })
 
+
 def sample(pages, current):
-    '''Show first few, few around the current page & a last page'''
+    """Show first few, few around the current page & a last page"""
     if len(pages) > 20:
         ls = []
         prev = False
