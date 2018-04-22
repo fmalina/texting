@@ -11,7 +11,7 @@ ALLOWED_HOSTS = ['texting.flatmaterooms.co.uk', 'localhost']
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
-EMAIL_SUBJECT_PREFIX  = 'Texting centre: '
+EMAIL_SUBJECT_PREFIX = 'Texting centre: '
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 USE_I18N = USE_L10N = False
@@ -31,6 +31,6 @@ TEMPLATES = [{
         ]
     }
 }]
-MIDDLEWARE_CLASSES = ('paging.PagingMiddleware',)
+MIDDLEWARE = ('paging.paging_middleware',)
 ROOT_URLCONF = 'urls'
 INSTALLED_APPS = ('sms',)

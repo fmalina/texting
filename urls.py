@@ -1,5 +1,5 @@
-from django.conf.urls import url, include
+from django.urls import path, include
 
 urlpatterns = [
-    url('', include('sms.urls')),
+    path('', include('sms.urls')),
 ]

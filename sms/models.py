@@ -1,15 +1,17 @@
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from datetime import datetime
 
-digits_only = lambda s: ''.join([x for x in s if x.isdigit()])
+
+def digits_only(s):
+    return ''.join([x for x in s if x.isdigit()])
 
 
 def format_no(no):
     n = digits_only(str(no))
     if n:
         return n[:-6]+' '+n[-6:-3]+' '+n[-3:]
-    return no # Voicemail, T-Mobile, hidden caller ID
+    return no  # Voicemail, T-Mobile, hidden caller ID
 
 
 def safe_no(no):
