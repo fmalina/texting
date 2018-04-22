@@ -40,7 +40,7 @@ class Sim(models.Model):
         null=True, blank=True, help_text="registered for this SIM")
     serial = models.CharField("Serial No", max_length=25,
         null=True, blank=True, help_text="The long number written on the SIM")
-    net = models.ForeignKey(Net, verbose_name="Operator",
+    net = models.ForeignKey(Net, verbose_name="Operator", on_delete=models.CASCADE,
         null=True, blank=True, help_text="What network operator is it on?")
     ref = models.IntegerField("Reference #",
         null=True, blank=True, help_text="shows in the sidebar")
@@ -93,7 +93,8 @@ class Sms(models.Model):
     TYPE = [('s', 'Sent'), ('r', 'Received')]
     STATE = [('d', 'Delivered'), ('e', 'Expired'), ('f', 'Failed')]
 
-    sim = models.ForeignKey(Sim, verbose_name="SIM", editable=False)
+    sim = models.ForeignKey(Sim, verbose_name="SIM", editable=False,
+                            on_delete=models.CASCADE)
     no = models.CharField("Phone number", max_length=15)
     txt = models.TextField("Text")
     at = models.DateTimeField(default=datetime.now, editable=False)
@@ -101,13 +102,14 @@ class Sms(models.Model):
         editable=False)
     state = models.CharField("Status", max_length=1, choices=STATE,
         blank=True, null=True, editable=False)
-    cat = models.ForeignKey(Cat, blank=True, null=True)
+    cat = models.ForeignKey(Cat, blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return '%s: %s' % (self.no, self.txt)
 
     class Meta:
         ordering = ['-pk']
+
 
 def get_cat(sms):
     fr, created = Cat.objects.get_or_create(name='Followup reply')
@@ -136,7 +138,7 @@ class Tpl(models.Model):
 
 class Log(models.Model):
     day = models.DateField()
-    sim = models.ForeignKey(Sim)
+    sim = models.ForeignKey(Sim, on_delete=models.CASCADE)
     sum = models.IntegerField()
 
     def __str__(self):
