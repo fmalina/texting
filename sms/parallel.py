@@ -1,4 +1,6 @@
-""" Prototype for parallel sending of texts using multiple GSM modems at once
+"""Prototype for parallel sending of texts.
+
+Uses multiple GSM modems at once.
 """
 
 from multiprocessing import Process

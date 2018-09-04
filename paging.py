@@ -77,7 +77,7 @@ def render_paging(request, pages, page_obj, count, limit):
 
 
 def sample(pages, current):
-    """Show first few, few around the current page & a last page"""
+    """Show first few, few around the current page & a last page."""
     if len(pages) > 20:
         ls = []
         prev = False

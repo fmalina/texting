@@ -2,21 +2,28 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.db.models import Count
 from modem import list_devices
-from humod.siminfo import show_operator, show_phone_no, full_sms_list, BOXES, system_info, seq
+from humod.siminfo import (
+    show_operator, show_phone_no,
+    full_sms_list, BOXES, system_info, seq
+)
 from sms.models import *
 from sms.forms import *
 from sms import gateway_api
 from sms.stats import get_stats, least_used
 from paging import simple_paging
 import datetime as dt
-import time, random
+import time
+import random
 import unicodedata
 
 
 def index(r):
     modems, modem, info = list_devices()
     return render(r, 'sms/index.html', {
-        'modems': modems, 'info': info})
+        'modems': modems,
+        'info': info
+    })
+
 
 def box(r, box, dev=0):
     if box not in BOXES.keys():
@@ -24,7 +31,7 @@ def box(r, box, dev=0):
     
     modems, device, info = list_devices(dev)
     modem = device['modem']
-    sim   = device['sim']
+    sim = device['sim']
     
     if modem:
         from_db, source = False, 'GPS device'
@@ -41,9 +48,14 @@ def box(r, box, dev=0):
         'box': box,
         'device': int(dev),
         'texts': texts,
-        'source': source, 'from_db': from_db,
-        'count': count, 'paging': paging,
-        'modems': modems, 'info': info})
+        'source': source,
+        'from_db': from_db,
+        'count': count,
+        'paging': paging,
+        'modems': modems,
+        'info': info
+    })
+
 
 def day(r, pk, box, date):
     """Daily view for chosen SIM. Linked from stats."""
@@ -59,14 +71,16 @@ def day(r, pk, box, date):
         'texts': texts,
         'sent_cnt': cnt('s'),
         'recd_cnt': cnt('r'),
-        'count': len(texts)})
+        'count': len(texts)
+    })
+
 
 def status(r, dev=0):
     tripletise = lambda x: ' '.join(seq(str(x), 3))
     
     modems, device, info = list_devices(dev)
     modem = device['modem']
-    sim   = device['sim']
+    sim = device['sim']
     if modem:
         state = system_info(modem)
         rssi = modem.get_rssi()
@@ -86,12 +100,15 @@ def status(r, dev=0):
         'state': state,
         'sim': sim,
         'imei': imei,
-        'modems': modems, 'info': info})
+        'modems': modems,
+        'info': info
+    })
+
 
 def send(r, dev=0, no=''):
     modems, device, info = list_devices(dev)
     modem = device['modem']
-    sim   = device['sim']
+    sim = device['sim']
     
     initial = {}
     no = safe_no(no)
@@ -117,7 +134,7 @@ def send(r, dev=0, no=''):
                     info.append(('Failed %s: "%s"' % (sms.no, sms.txt), e, dev))
                 time.sleep(random.random())
         if not modem and sms:
-            numbers = ','.join(numbers) # send all in one API call
+            numbers = ','.join(numbers)  # send all in one API call
             gateway_api.send(sim, numbers, sim.no, txt, sms.pk)
                 
         return redirect('box', dev=dev, box='inbox')
@@ -125,7 +142,9 @@ def send(r, dev=0, no=''):
         'form': form,
         'texts': texts,
         'title': 'Send a text',
-        'modems': modems, 'info': info})
+        'modems': modems, 'info': info
+    })
+
 
 def api_inbound(request):
     if 'to' not in request.GET:
@@ -134,11 +153,12 @@ def api_inbound(request):
     # TODO sort out UTF8mb4 handling
     txt = unicodedata.normalize('NFKD', txt).encode('ascii', 'ignore')
 
-    sim = gateway_sim() # not using request.GET['to']
+    sim = gateway_sim()  # not using request.GET['to']
     sms = Sms(sim=sim, no=safe_no(no), txt=txt, at=datetime.now(), typ='r')
     sms.cat = get_cat(sms)
     sms.save()
     return HttpResponse('ok')
+
 
 def api_status_update(request):
     if 'to' not in request.GET:
@@ -150,6 +170,7 @@ def api_status_update(request):
         sms.save()
         return HttpResponse('ok')
     return HttpResponse('No reference #')
+
 
 def rm(request, dev=0, id=None):
     if dev=='db':
@@ -163,11 +184,13 @@ def rm(request, dev=0, id=None):
             modem.sms_del(int(id))
     return redirect('box', dev=dev, box='inbox')
 
+
 def stat(request):
     return render(request, 'sms/stats.html', {
         'dates': get_stats(),
         'suggest': least_used()
     })
+
 
 def sort(request):
     texts = Sms.objects.filter(typ='r', cat__isnull=True)
@@ -175,9 +198,11 @@ def sort(request):
     return render(request, 'sms/sort.html', {
         'title': 'Sort incoming messages',
         'texts': texts,
-        'count': count, 'paging': paging,
+        'count': count,
+        'paging': paging,
         'cats': Cat.objects.all()
     })
+
 
 def tag(request, id, cat_id):
     cat = get_object_or_404(Cat, pk=int(cat_id))
@@ -186,6 +211,7 @@ def tag(request, id, cat_id):
     same.update(cat=cat)
     return HttpResponse('Tagged: %s' % cat.name)
 
+
 def cat(request, cat_id):
     cat = get_object_or_404(Cat, pk=int(cat_id))
     ls = Sms.objects.filter(cat=cat).values('txt')\
@@ -193,7 +219,8 @@ def cat(request, cat_id):
     return render(request, 'sms/sort.html', {
         'texts': ls,
         'title': cat.name
-        })
+    })
+
 
 panels = {
    'cat': (Cat, CatForm),
@@ -202,6 +229,7 @@ panels = {
    'net': (Net, NetForm)
 }
 
+
 def ls(request, p):
     """Generic listing of objects"""
     model = panels[p][0]
@@ -209,7 +237,8 @@ def ls(request, p):
         'ls': model.objects.all(),
         'pane': p,
         'item': model._meta
-        })
+    })
+
 
 def form(request, pk=None, delete=False, p='sim'):
     model, form = panels[p]
@@ -227,4 +256,7 @@ def form(request, pk=None, delete=False, p='sim'):
     if form.is_valid():
         form.save()
         return redirect(done)
-    return render(request, 'sms/form.html', {'form': form, 'title': title})
+    return render(request, 'sms/form.html', {
+        'form': form,
+        'title': title
+    })

@@ -11,8 +11,8 @@ def get_stats(days_back=0):
         txts = txts.filter(at__gt=datetime.now()-timedelta(days=days_back))
     txts = txts.extra({'date': "date(at)"}).values_list('date','sim')
 
-    sims = {s.pk: s for s in all_sims} # map of SIM pks and their SIM objects
-    txts = [(date, sims[sim]) for date, sim in txts] # graft in the SIM objects
+    sims = {s.pk: s for s in all_sims}  # map of SIM pks and their SIM objects
+    txts = [(date, sims[sim]) for date, sim in txts]  # graft in the SIM objects
 
     # Group all texts by date, each text represented by its SIM.
     d = {}

@@ -4,7 +4,7 @@ from humod.siminfo import seq, show_imsi
 from sms.models import Sim, gateway_sim
 import humod
 
-pre  = '/dev/cu.HUAWEIMobile-'
+pre = '/dev/cu.HUAWEIMobile-'
 # m = humod.Modem(pre+'Modem', pre+'Pcui')
 # print(m.show_model())
 
@@ -67,7 +67,8 @@ def list_devices(dev=None):
         ok = dev == str(i) or False
         device = {'i': i, 'modem': modem, 'sim': sim, 'current': bool(ok)}
         devices.append(device)
-        if ok: current = device
+        if ok:
+            current = device
 
     devices = sorted(devices, key=lambda k: str(k['sim']))
     return devices, current, info
