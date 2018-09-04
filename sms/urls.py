@@ -8,7 +8,7 @@ urlpatterns = [
     re_path(r'^(?P<dev>[0-9]+)/reply/(?P<no>[\+\-0-9a-zA-Z]+)$', view.send, name="reply"),
     re_path(r'^(?P<dev>[0-9]+)/(?P<box>[a-z]+)$', view.box, name="box"),
     re_path(r'^(?P<pk>[0-9]+)/(?P<box>[a-z]+)/(?P<date>[0-9]{4}/[0-9]{2}/[0-9]{2})$',
-        view.day, name="day"),
+            view.day, name="day"),
     re_path(r'^(?P<dev>[a-z0-9]+)/rm/(?P<id>[0-9]+)$', view.rm, name="rm"),
     re_path(r'^tag/(?P<cat_id>[0-9]+)/(?P<id>[0-9]+)$', view.tag, name='tag'),
     re_path(r'^cat/(?P<cat_id>[0-9]+)$', view.cat, name='cat'),
