@@ -150,8 +150,6 @@ def api_inbound(request):
     if 'to' not in request.GET:
         return HttpResponse('Listening...')
     _to, no, txt = gateway_api.receive(request.GET)
-    # TODO sort out UTF8mb4 handling
-    txt = unicodedata.normalize('NFKD', txt).encode('ascii', 'ignore')
 
     sim = gateway_sim()  # not using request.GET['to']
     sms = Sms(sim=sim, no=safe_no(no), txt=txt, at=datetime.now(), typ='r')
