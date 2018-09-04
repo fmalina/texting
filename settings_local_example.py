@@ -5,6 +5,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'texting.db',
+        # Use UTF8mb4 with MySQL to support emoji
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 

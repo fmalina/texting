@@ -54,7 +54,7 @@ def send_one_text(modem, sim, txt, no, name=''):
             sleep(1)
             return False
     elif settings.TEXTING_RUN:
-        sms.save() # save 1st, so pk is ready for status update
+        sms.save()  # save 1st, so pk is ready for status update
         gateway_api.send(sim, sms.no, sim.no, sms.txt, sms.pk)
         return no
 
@@ -75,7 +75,8 @@ def send_texts(cat, nums):
         ok = True
         if not duplicates(no):
             ok = send_one_text(modem, sim, txt, no, name)
-        if ok: sent.append(no)
+        if ok:
+            sent.append(no)
     mark_used(sent)
     return i+1, modem, sim
 
@@ -92,16 +93,20 @@ def mark_used(sent):
     return urllib.request.urlopen(rqst).read()
 
 
+def pull_numbers_and_send():
+    datastr = urllib.request.urlopen(settings.TEXTING_API_URL,
+                                     timeout=15).read().decode()
+    data = json.loads(datastr)
+    alerts = []
+    for cat, nums in data.items():
+        if nums:
+            i, modem, sim = send_texts(cat, nums)
+            alerts.append('%s %s' % (i, cat.lower()))
+    if settings.TEXTING_RUN and alerts:
+        msg = ', '.join(alerts)
+        text_managers(modem, sim, msg)
+
+
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        datastr = urllib.request.urlopen(settings.TEXTING_API_URL,
-                                         timeout=15).read().decode()
-        data = json.loads(datastr)
-        alerts = []
-        for cat, nums in data.items():
-            if nums:
-                i, modem, sim = send_texts(cat, nums)
-                alerts.append('%s %s' % (i, cat.lower()))
-        if settings.TEXTING_RUN and alerts:
-            msg = ', '.join(alerts)
-            text_managers(modem, sim, msg)
+        pull_numbers_and_send()
