@@ -23,8 +23,10 @@ def safe_no(no):
 
 class Net(models.Model):
     name = models.CharField("Network Operator", max_length=8)
-    note = models.TextField("Notes", blank=True,
-        help_text="Customer services number, top-up and packages details")
+    note = models.TextField(
+        "Notes", blank=True,
+        help_text="Customer services number, top-up and packages details"
+    )
 
     def __str__(self):
         return self.name
@@ -36,23 +38,39 @@ class Net(models.Model):
 
 class Sim(models.Model):
     imsi = models.CharField(max_length=25, null=True, blank=True, editable=False)
-    no = models.CharField("Phone number", max_length=11,
-        null=True, blank=True, help_text="registered for this SIM")
-    serial = models.CharField("Serial No", max_length=25,
-        null=True, blank=True, help_text="The long number written on the SIM")
-    net = models.ForeignKey(Net, verbose_name="Operator", on_delete=models.CASCADE,
-        null=True, blank=True, help_text="What network operator is it on?")
-    ref = models.IntegerField("Reference #",
-        null=True, blank=True, help_text="shows in the sidebar")
+    no = models.CharField(
+        "Phone number", max_length=11,
+        null=True, blank=True, help_text="registered for this SIM"
+    )
+    serial = models.CharField(
+        "Serial No", max_length=25,
+        null=True, blank=True, help_text="The long number written on the SIM"
+    )
+    net = models.ForeignKey(
+        Net, verbose_name="Operator", on_delete=models.CASCADE,
+        null=True, blank=True, help_text="What network operator is it on?"
+    )
+    ref = models.IntegerField(
+        "Reference #",
+        null=True, blank=True, help_text="shows in the sidebar"
+    )
     active = models.BooleanField(default=False)
-    url = models.CharField("URL", max_length=75,
-        null=True, blank=True, help_text="Gateway/SIM topup URL")
-    user = models.CharField("Username", max_length=25,
-        null=True, blank=True, help_text="Gateway/SIM topup credentials")
-    pwd = models.CharField("Password", max_length=25,
-        null=True, blank=True)
-    note = models.TextField("Any other notes?",
-        help_text="About the package, topup etc.", blank=True)
+    url = models.CharField(
+        "URL", max_length=75,
+        null=True, blank=True, help_text="Gateway/SIM topup URL"
+    )
+    user = models.CharField(
+        "Username", max_length=25,
+        null=True, blank=True, help_text="Gateway/SIM topup credentials"
+    )
+    pwd = models.CharField(
+        "Password", max_length=25,
+        null=True, blank=True
+    )
+    note = models.TextField(
+        "Any other notes?",
+        help_text="About the package, topup etc.", blank=True
+    )
 
     def __str__(self):
         u = ''
@@ -98,10 +116,14 @@ class Sms(models.Model):
     no = models.CharField("Phone number", max_length=15)
     txt = models.TextField("Text")
     at = models.DateTimeField(default=datetime.now, editable=False)
-    typ = models.CharField("Sent or Received", max_length=1, choices=TYPE,
-        editable=False)
-    state = models.CharField("Status", max_length=1, choices=STATE,
-        blank=True, null=True, editable=False)
+    typ = models.CharField(
+        "Sent or Received", max_length=1, choices=TYPE,
+        editable=False
+    )
+    state = models.CharField(
+        "Status", max_length=1, choices=STATE,
+        blank=True, null=True, editable=False
+    )
     cat = models.ForeignKey(Cat, blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
@@ -124,7 +146,8 @@ def get_cat(sms):
 
 
 class Tpl(models.Model):
-    name = models.CharField(max_length=40,
+    name = models.CharField(
+        max_length=40,
         verbose_name="Name (match recipient group)")
     tpl = models.TextField("Body")
 

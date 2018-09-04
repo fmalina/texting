@@ -2,8 +2,8 @@
 
 >>> import greeting
 >>> print(greeting.timely_greeting())
-Have a good night
 
+Have a good night.
 """
 
 from datetime import time, datetime, timedelta
@@ -14,8 +14,7 @@ def seasons_greeting(now=datetime.now()):
     yyyy = int(now.strftime('%Y'))
     
     def easter_season(yyyy):
-        """Easter Sunday falls on different day every year
-        """
+        """Easter Sunday falls on different day every year."""
         esun = datetime.combine(easter(yyyy), datetime.min.time())
         return esun-timedelta(days=7), esun+timedelta(days=7)
 
@@ -36,7 +35,7 @@ def seasons_greeting(now=datetime.now()):
     seasons = (
         (season('15.12', '27.12'), 'Merry Christmas'),
         (season('01.01', '12.01'), 'Happy New Year %d' % yyyy),
-        (easter_season(yyyy)     , 'Happy Easter'),
+        (easter_season(yyyy), 'Happy Easter'),
         (season('28.10', '02.11'), 'Happy Halloween'),
         (season('14.02', '14.02'), 'Happy Valentine\'s Day')
     )
@@ -49,8 +48,8 @@ def seasons_greeting(now=datetime.now()):
 
 def timely_greeting(now=datetime.now()):
     dt = (['morning', time( 0, 0)],
-          ['day',     time( 8,30)],
-          ['night',   time(16,45)])
+          ['day', time( 8,30)],
+          ['night', time(16,45)])
     day_num = now.isoweekday()
     daytime = [x for x, t in dt if now.time() >= t][-1]
     weektime = 'week'+('end' if now.isoweekday() in [6, 7] else 'day')
@@ -63,7 +62,7 @@ def timely_greeting(now=datetime.now()):
     if day_num == 7 and daytime == 'night':
         t = 'night'
 
-    greeting = 'Have a good '+t
+    greeting = 'Have a good ' + t
 
     seasonal = seasons_greeting(now)
     if seasonal:

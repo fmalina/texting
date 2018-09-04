@@ -18,13 +18,16 @@ greetings = greeting.timely_greeting()
 
 def duplicates(no):
     now = datetime.now()
-    return Sms.objects.filter(typ='s', no=no,
-        at__range=(now - timedelta(days=180), now)).count() > 1
+    return Sms.objects.filter(
+        typ='s', no=no,
+        at__range=(now - timedelta(days=180), now)
+    ).count() > 1
 
 
 def choose_modem_by_usage(devices):
     """Combine SIM stats and connected devices, ignoring unused SIMs
-    Return least frequently used (LFU) SIM and its modem."""
+    Return least frequently used (LFU) SIM and its modem.
+    """
     usage = least_used(get_list=True)
     lfu = []
     for sim, sent in usage:

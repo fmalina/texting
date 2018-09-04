@@ -15,10 +15,11 @@ def sort_by_sim(followup):
 
 
 def choose_modem_by_sim(devices, sim):
-    """Return modem containing the SIM, None if no modem has it.
-    """
-    try: return [x for x in devices if x['sim']==sim][0]['modem']
-    except IndexError: return
+    """Return modem containing the SIM, None if no modem has it."""
+    try:
+        return [x for x in devices if x['sim']==sim][0]['modem']
+    except IndexError:
+        return
 
 
 def send_followups(devices, followups, txt):
@@ -35,8 +36,7 @@ def send_followups(devices, followups, txt):
 
 
 def followup():
-    """Followup runs once a day to avoid duplicates
-    """
+    """Followup runs once a day to avoid duplicates."""
     BASIC_FOLLOWUP_TXT = Tpl.objects.get(name='Followup')
     ALT_FOLLOWUP_TXT = Tpl.objects.get(name='Followup alternative')
 
@@ -54,8 +54,10 @@ def followup():
     for s in sent:
         d[s.no] = [s]
     for r in rpls:
-        try: d[r.no] = d[r.no]+[r]
-        except KeyError: pass # replies to later texts
+        try:
+            d[r.no] = d[r.no]+[r]
+        except KeyError:
+            pass  # replies to later texts
 
     basic_followup = []
     alt_followup = []
@@ -73,9 +75,9 @@ def followup():
                     basic_followup.append(msg)
                 elif reply.cat.name in ALT_FOLLOWUP_CATEGORIES:
                     alt_followup.append(msg)
-                else: # ignore 'Bot' & 'End' categories
+                else:  # ignore 'Bot' & 'End' categories
                     ignoring_texts.append(reply)
-            else: # ignore uncategorised
+            else:  # ignore un-categorised
                 ignoring_texts.append(reply)
 
     devices, _modem, _info = list_devices()
