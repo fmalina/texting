@@ -35,7 +35,10 @@ def choose_modem_by_usage(devices):
             if m['sim']==sim:
                 m['sent'] = sent
                 lfu.append(m)
-    l = lfu[0]  # later this could give alternative if modem doesn't respond
+    try:
+        l = lfu[0]
+    except IndexError:
+        return Sim.objects.get(net__name='SMSBCAST'), False
     return l['sim'], l['modem']
 
 
