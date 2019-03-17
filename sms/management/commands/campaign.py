@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from sms.models import Sms, Tpl
+from sms.models import Sms, Tpl, Sim
 from sms.stats import least_used
 from sms import gateway_api
 from modem import list_devices
