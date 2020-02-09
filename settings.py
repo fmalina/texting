@@ -7,7 +7,7 @@ except ImportError:
     from settings_local_example import *
 
 TEMPLATE_DEBUG = DEBUG
-ALLOWED_HOSTS = ['texting.flatmaterooms.co.uk', 'localhost']
+ALLOWED_HOSTS = ['sms.blocl.uk', 'localhost']
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
