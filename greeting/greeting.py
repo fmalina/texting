@@ -20,7 +20,7 @@ def seasons_greeting(now=datetime.now()):
 
     def season(start, end):
         dt = lambda ddmm,hrs: datetime.combine(
-            datetime.strptime('%s.%s' % (ddmm, yyyy), '%d.%m.%Y'),
+            datetime.strptime(f'{ddmm}.{yyyy}', '%d.%m.%Y'),
             hrs)
         term = dt(start, datetime.min.time()),\
                dt(end,   datetime.max.time())
@@ -34,7 +34,7 @@ def seasons_greeting(now=datetime.now()):
     
     seasons = (
         (season('15.12', '27.12'), 'Merry Christmas'),
-        (season('01.01', '12.01'), 'Happy New Year %d' % yyyy),
+        (season('01.01', '12.01'), f'Happy New Year {yyyy:d}'),
         (easter_season(yyyy), 'Happy Easter'),
         (season('28.10', '02.11'), 'Happy Halloween'),
         (season('14.02', '14.02'), 'Happy Valentine\'s Day')

@@ -74,8 +74,8 @@ class Sim(models.Model):
 
     def __str__(self):
         u = ''
-        if self.net: u += '%s' % self.net
-        if self.ref: u += ' %s' % self.ref
+        if self.net: u += f'{self.net}'
+        if self.ref: u += f' {self.ref}'
         elif not self.net:
             u += 'Unknown'
         return u
@@ -127,7 +127,7 @@ class Sms(models.Model):
     cat = models.ForeignKey(Cat, blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return '%s: %s' % (self.no, self.txt)
+        return f'{self.no}: {self.txt}'
 
     class Meta:
         ordering = ['-pk']
@@ -165,7 +165,7 @@ class Log(models.Model):
     sum = models.IntegerField()
 
     def __str__(self):
-        return '%s %s' % (self.day, self.sim)
+        return f'{self.day} {self.sim}'
 
     class Meta:
         unique_together = ('day', 'sim')

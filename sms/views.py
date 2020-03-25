@@ -85,7 +85,7 @@ def status(r, dev=0):
         state = system_info(modem)
         rssi = modem.get_rssi()
         imei = modem.show_imei()
-        state['Signal'] = '<i class="i gt"></i>' * rssi + ' %s' % rssi
+        state['Signal'] = '<i class="i gt"></i>' * rssi + f' {rssi}'
         state['IMEI'] = tripletise(imei)
         state['Phone'] = show_phone_no(modem) or sim.no
         state['Operator'] = show_operator(modem) or 'No operator'
@@ -131,7 +131,7 @@ def send(r, dev=0, no=''):
                 try:
                     modem.sms_send(sms.no, sms.txt)
                 except Exception as e:
-                    info.append(('Failed %s: "%s"' % (sms.no, sms.txt), e, dev))
+                    info.append((f'Failed {sms.no}: "{sms.txt}"', e, dev))
                 time.sleep(random.random())
         if not modem and sms:
             numbers = ','.join(numbers)  # send all in one API call
@@ -207,7 +207,7 @@ def tag(request, id, cat_id):
     sms = get_object_or_404(Sms, pk=int(id))
     same = Sms.objects.filter(txt__iexact=sms.txt.lower())
     same.update(cat=cat)
-    return HttpResponse('Tagged: %s' % cat.name)
+    return HttpResponse(f'Tagged: {cat.name}')
 
 
 def cat(request, cat_id):
@@ -243,10 +243,10 @@ def form(request, pk=None, delete=False, p='sim'):
     name = model._meta.verbose_name
     done = p+'s'
     ins = None
-    title = 'New %s' % name
+    title = f'New {name}'
     if pk:
         ins = get_object_or_404(model, pk=pk)
-        title = '%s: %s' % (name, ins)
+        title = f'{name}: {ins}'
     if delete:
         ins.delete()
         return redirect(done)
