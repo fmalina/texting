@@ -32,7 +32,7 @@ def read_in():
             modem.sms_del(int(t['id']))
             i+=1
     if i:
-        msg = 'Saved %d replies.' % i
+        msg = f'Saved {i:d} replies.'
         print(msg)
         return msg
 

@@ -44,7 +44,7 @@ def choose_modem_by_usage(devices):
 
 def send_one_text(modem, sim, txt, no, name=''):
     if name:
-        txt = txt.replace("Hi,", "Hi %s," % name)
+        txt = txt.replace("Hi,", f"Hi {name},")
     sms = Sms(typ='s', sim=sim, txt=txt, no=no)
     if settings.TEXTING_RUN and modem:
         try:
@@ -70,8 +70,8 @@ def send_texts(cat, nums):
     sim, modem = choose_modem_by_usage(devices)
 
     sent = []
-    print('\n%s  %s' % (cat.upper(), sim))
-    print('%s (%s chars)' % (txt, len(txt)))
+    print(f'\n{cat.upper()}  {sim}')
+    print(f'{txt} ({len(txt)} chars)')
     i = 0
     for i, number_name in enumerate(nums):
         no, name = number_name
@@ -104,7 +104,7 @@ def pull_numbers_and_send():
     for cat, nums in data.items():
         if nums:
             i, modem, sim = send_texts(cat, nums)
-            alerts.append('%s %s' % (i, cat.lower()))
+            alerts.append(f'{i} {cat.lower()}')
     if settings.TEXTING_RUN and alerts:
         msg = ', '.join(alerts)
         text_managers(modem, sim, msg)
