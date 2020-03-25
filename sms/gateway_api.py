@@ -19,11 +19,11 @@ def send(key, to, from_, message, ref):
     for data_line in response.split("\n"):
         l = data_line.split(':')
         if   l[0] == "OK":
-            print("The message to %s was successful, with reference %s" % (l[1], l[2]))
+            print(f"The message to {l[1]} was successful, with reference {l[2]}")
         elif l[0] == "BAD":
-            print("The message to %s was NOT successful. Reason: %s" % (l[1], l[2]))
+            print(f"The message to {l[1]} was NOT successful. Reason: {l[2]}")
         elif l[0] == "ERROR":
-            print("There was an error with this request. Reason: %s" % l[1])
+            print(f"There was an error with this request. Reason: {l[1]}")
 
 
 def receive(get):
